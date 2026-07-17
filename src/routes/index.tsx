@@ -437,7 +437,7 @@ function Home() {
             <h2 className="mt-6 text-[34px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[46px] md:text-[64px] md:leading-[1.05]">
               From the first uncertain feeling
               <br />
-              <span className="text-forest italic font-extralight">to the person you are becoming.</span>
+              <span className="font-editorial text-gradient-sun">to the person you are becoming.</span>
             </h2>
             <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-graphite/70">
               Not a chatbot. A patient thread that keeps context, notices patterns, and returns
