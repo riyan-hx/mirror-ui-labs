@@ -1029,7 +1029,7 @@ function CTA() {
                 Two minutes to set up. Five minutes a day. A quieter mind by next week.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <a href="#" className="btn-primary shine w-full justify-center sm:w-auto">
+                <a href="https://chat.lumidai.in" target="_blank" rel="noopener noreferrer" className="btn-primary shine w-full justify-center sm:w-auto">
                   Try Lumid free
                   <ArrowRight size={15} strokeWidth={1.9} />
                 </a>
