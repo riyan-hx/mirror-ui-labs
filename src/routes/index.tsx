@@ -410,11 +410,14 @@ function Home() {
       {/* Trust strip */}
       <section className="relative mt-20 pb-20 md:-mt-4 md:pb-28">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 text-center">
-            <div className="h-px flex-1 bg-graphite/10" />
-            <p className="text-[12px] tracking-[0.22em] text-graphite/50 uppercase">Trusted in quiet corners of care</p>
-            <div className="h-px flex-1 bg-graphite/10" />
+          <div className="mx-auto flex max-w-3xl items-center justify-center gap-4 text-center seed-divider">
+            <div className="seed-divider-line" />
+            <span className="seed-dot" />
+            <p className="text-[12px] tracking-[0.22em] text-graphite/55 uppercase">Trusted in quiet corners of care</p>
+            <span className="seed-dot" />
+            <div className="seed-divider-line" />
           </div>
+
           <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-6 opacity-70 md:grid-cols-6 md:gap-x-6">
             {["Ottia Health", "Northwell Mind", "Kestrel Clinic", "Ivy Psychology", "Bloomlab", "Solace Co."].map((n) => (
               <div key={n} className="flex items-center justify-center gap-2 text-graphite/55">
