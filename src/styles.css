@@ -39,28 +39,31 @@
 :root {
   --radius: 1.25rem;
 
-  --warm: #FFFFFF;            /* pure white */
+  --warm: #FFFFFF;
   --background: #FFFFFF;
-  --foreground: #0E1614;      /* near-black graphite */
+  --foreground: #0E1614;
   --graphite: #0E1614;
 
   --card: #FFFFFF;
   --card-foreground: #0E1614;
-  --muted: #F4F6F3;
-  --muted-foreground: #566360;
+  --muted: #F3F7F2;
+  --muted-foreground: #4E5C58;
 
-  --primary: #14382C;         /* deep forest */
+  --primary: #2F6B54;
   --primary-foreground: #FFFFFF;
 
-  --accent: #B8D8B8;
+  --accent: #CDE9CE;
   --accent-foreground: #0E1614;
 
-  --forest: #14382C;
-  --forest-deep: #071612;
-  --sage: #9FB89A;
-  --mint: #C7E7C7;
+  /* Lumid palette — lighter, brighter greens */
+  --forest: #3E8B6E;           /* secondary/brand green (Lumid) — lighter */
+  --forest-deep: #1F4A3A;      /* deep contrast for buttons only */
+  --sage: #A9CDB0;
+  --mint: #DCF1DA;
+  --leaf: #6FB58C;
 
-  --border: rgba(14, 22, 20, 0.08);
+  --border: rgba(14, 22, 20, 0.07);
+
 }
 
 @layer base {
