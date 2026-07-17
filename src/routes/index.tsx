@@ -187,19 +187,19 @@ function EcoCard({
 
 function HeroEcosystem() {
   return (
-    <div className="relative mx-auto mt-14 h-[720px] w-full max-w-[1180px]">
-      {/* Connecting curves */}
+    <div className="relative mx-auto mt-10 w-full max-w-[1180px] md:mt-14 md:h-[720px]">
+      {/* Connecting curves — desktop only */}
       <svg
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 hidden h-full w-full md:block"
         viewBox="0 0 1180 720"
         fill="none"
         preserveAspectRatio="none"
       >
         <defs>
           <linearGradient id="ln" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#1F3D33" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#1F3D33" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#1F3D33" stopOpacity="0" />
+            <stop offset="0" stopColor="#14382C" stopOpacity="0" />
+            <stop offset="0.5" stopColor="#14382C" stopOpacity="0.35" />
+            <stop offset="1" stopColor="#14382C" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path className="draw-line" d="M180,180 C 340,120 460,260 590,320" stroke="url(#ln)" strokeWidth="1.2" />
@@ -208,90 +208,152 @@ function HeroEcosystem() {
         <path className="draw-line" d="M980,540 C 860,560 760,470 640,410" stroke="url(#ln)" strokeWidth="1.2" />
       </svg>
 
-      {/* Phone center */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      {/* Phone center — inline on mobile, absolute on desktop */}
+      <div className="relative flex justify-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
         <div className="float-slower">
           <PhoneMockup />
         </div>
       </div>
 
-      {/* LEFT: Recovery Timeline */}
-      <EcoCard className="left-0 top-[70px] w-[260px] float-slow" rotate={-3}>
-        <div className="flex items-center gap-2">
-          <Clock size={14} strokeWidth={1.6} className="text-forest" />
-          <p className="text-[11px] font-medium text-graphite">Recovery Timeline</p>
-        </div>
-        <div className="mt-3 space-y-2">
-          {[
-            { d: "Mon", t: "Noticed avoidance", tone: "bg-sage/50" },
-            { d: "Wed", t: "Named the fear", tone: "bg-mint" },
-            { d: "Fri", t: "First 10 minutes", tone: "bg-forest text-warm" },
-          ].map((r) => (
-            <div key={r.d} className="flex items-center gap-2 text-[11.5px]">
-              <span className="w-8 text-graphite/50">{r.d}</span>
-              <span className={`rounded-full px-2.5 py-1 ${r.tone}`}>{r.t}</span>
-            </div>
-          ))}
-        </div>
-      </EcoCard>
-
-      {/* LEFT: Behavior Pattern */}
-      <EcoCard className="left-[40px] top-[410px] w-[230px] float-slower" rotate={2}>
-        <div className="flex items-center justify-between">
-          <p className="text-[11px] font-medium text-graphite">Behavior Pattern</p>
-          <BrainCircuit size={13} strokeWidth={1.6} className="text-forest" />
-        </div>
-        <svg viewBox="0 0 200 60" className="mt-2 w-full">
-          {[10, 22, 16, 30, 24, 40, 34, 46].map((h, i) => (
-            <rect key={i} x={i * 24 + 4} y={60 - h} width="12" height={h} rx="3" fill={i === 5 ? "#1F3D33" : "#C7E7C7"} />
-          ))}
-        </svg>
-        <p className="mt-1 text-[10.5px] text-graphite/55">Avoidance ↓ 34% since last cycle</p>
-      </EcoCard>
-
-      {/* RIGHT: Daily Reflection */}
-      <EcoCard className="right-0 top-[60px] w-[260px] float-slower" rotate={3}>
-        <div className="flex items-center gap-2">
-          <MessageCircle size={14} strokeWidth={1.6} className="text-forest" />
-          <p className="text-[11px] font-medium text-graphite">Daily Reflection</p>
-        </div>
-        <p className="mt-2 text-[12.5px] leading-snug text-graphite/85">
-          "Today I chose to open the document. I read one line. It was enough."
-        </p>
-        <p className="mt-2 text-[10.5px] text-graphite/50">— saved to your private memory</p>
-      </EcoCard>
-
-      {/* RIGHT: Identity Progress */}
-      <EcoCard className="right-[40px] top-[420px] w-[240px] float-slow" rotate={-2}>
-        <div className="flex items-center justify-between">
-          <p className="text-[11px] font-medium text-graphite">Identity Progress</p>
-          <HeartPulse size={13} strokeWidth={1.6} className="text-forest" />
-        </div>
-        <div className="mt-3 space-y-2">
-          {[
-            { l: "The kind who begins", v: 74 },
-            { l: "The kind who returns", v: 58 },
-          ].map((r) => (
-            <div key={r.l}>
-              <div className="mb-1 flex justify-between text-[10.5px] text-graphite/70">
-                <span>{r.l}</span><span>{r.v}%</span>
+      {/* Mobile: satellite cards in a clean 2-col grid */}
+      <div className="mt-10 grid grid-cols-2 gap-3 px-1 md:hidden">
+        <div className="card-premium p-4">
+          <div className="flex items-center gap-2">
+            <Clock size={13} strokeWidth={1.6} className="text-forest" />
+            <p className="text-[11px] font-medium text-graphite">Timeline</p>
+          </div>
+          <div className="mt-3 space-y-1.5">
+            {[
+              { d: "Mon", t: "Noticed", tone: "bg-sage/50" },
+              { d: "Wed", t: "Named it", tone: "bg-mint" },
+              { d: "Fri", t: "10 min", tone: "bg-forest text-warm" },
+            ].map((r) => (
+              <div key={r.d} className="flex items-center gap-2 text-[11px]">
+                <span className="w-6 text-graphite/50">{r.d}</span>
+                <span className={`rounded-full px-2 py-0.5 ${r.tone}`}>{r.t}</span>
               </div>
-              <div className="h-1.5 w-full overflow-hidden rounded-full bg-forest/10">
-                <div className="h-full rounded-full bg-forest" style={{ width: `${r.v}%` }} />
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </EcoCard>
-
-      {/* small floating chips */}
-      <div className="card-premium float-slow absolute left-[45%] top-[10px] flex items-center gap-2 px-3 py-1.5">
-        <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-forest" />
-        <span className="text-[11px] text-graphite/80">Listening quietly</span>
+        <div className="card-premium p-4">
+          <div className="flex items-center gap-2">
+            <MessageCircle size={13} strokeWidth={1.6} className="text-forest" />
+            <p className="text-[11px] font-medium text-graphite">Reflection</p>
+          </div>
+          <p className="mt-2 text-[12px] leading-snug text-graphite/85">
+            "I opened it. Read one line. Enough."
+          </p>
+        </div>
+        <div className="card-premium p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-medium text-graphite">Pattern</p>
+            <BrainCircuit size={13} strokeWidth={1.6} className="text-forest" />
+          </div>
+          <svg viewBox="0 0 200 60" className="mt-2 w-full">
+            {[10, 22, 16, 30, 24, 40, 34, 46].map((h, i) => (
+              <rect key={i} x={i * 24 + 4} y={60 - h} width="12" height={h} rx="3" fill={i === 5 ? "#14382C" : "#C7E7C7"} />
+            ))}
+          </svg>
+          <p className="mt-1 text-[10px] text-graphite/55">Avoidance ↓ 34%</p>
+        </div>
+        <div className="card-premium p-4">
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-medium text-graphite">Identity</p>
+            <HeartPulse size={13} strokeWidth={1.6} className="text-forest" />
+          </div>
+          <div className="mt-3 space-y-2">
+            {[
+              { l: "Begins", v: 74 },
+              { l: "Returns", v: 58 },
+            ].map((r) => (
+              <div key={r.l}>
+                <div className="mb-1 flex justify-between text-[10px] text-graphite/70">
+                  <span>{r.l}</span><span>{r.v}%</span>
+                </div>
+                <div className="h-1 w-full overflow-hidden rounded-full bg-forest/10">
+                  <div className="h-full rounded-full bg-forest" style={{ width: `${r.v}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="card-premium float-slower absolute right-[36%] bottom-[10px] flex items-center gap-2 px-3 py-1.5">
-        <Lock size={11} strokeWidth={1.7} className="text-forest" />
-        <span className="text-[11px] text-graphite/80">End-to-end encrypted</span>
+
+      {/* Desktop-only floating cards */}
+      <div className="hidden md:block">
+        <EcoCard className="left-0 top-[70px] w-[260px] float-slow" rotate={-3}>
+          <div className="flex items-center gap-2">
+            <Clock size={14} strokeWidth={1.6} className="text-forest" />
+            <p className="text-[11px] font-medium text-graphite">Recovery Timeline</p>
+          </div>
+          <div className="mt-3 space-y-2">
+            {[
+              { d: "Mon", t: "Noticed avoidance", tone: "bg-sage/50" },
+              { d: "Wed", t: "Named the fear", tone: "bg-mint" },
+              { d: "Fri", t: "First 10 minutes", tone: "bg-forest text-warm" },
+            ].map((r) => (
+              <div key={r.d} className="flex items-center gap-2 text-[11.5px]">
+                <span className="w-8 text-graphite/50">{r.d}</span>
+                <span className={`rounded-full px-2.5 py-1 ${r.tone}`}>{r.t}</span>
+              </div>
+            ))}
+          </div>
+        </EcoCard>
+
+        <EcoCard className="left-[40px] top-[410px] w-[230px] float-slower" rotate={2}>
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-medium text-graphite">Behavior Pattern</p>
+            <BrainCircuit size={13} strokeWidth={1.6} className="text-forest" />
+          </div>
+          <svg viewBox="0 0 200 60" className="mt-2 w-full">
+            {[10, 22, 16, 30, 24, 40, 34, 46].map((h, i) => (
+              <rect key={i} x={i * 24 + 4} y={60 - h} width="12" height={h} rx="3" fill={i === 5 ? "#14382C" : "#C7E7C7"} />
+            ))}
+          </svg>
+          <p className="mt-1 text-[10.5px] text-graphite/55">Avoidance ↓ 34% since last cycle</p>
+        </EcoCard>
+
+        <EcoCard className="right-0 top-[60px] w-[260px] float-slower" rotate={3}>
+          <div className="flex items-center gap-2">
+            <MessageCircle size={14} strokeWidth={1.6} className="text-forest" />
+            <p className="text-[11px] font-medium text-graphite">Daily Reflection</p>
+          </div>
+          <p className="mt-2 text-[12.5px] leading-snug text-graphite/85">
+            "Today I chose to open the document. I read one line. It was enough."
+          </p>
+          <p className="mt-2 text-[10.5px] text-graphite/50">— saved to your private memory</p>
+        </EcoCard>
+
+        <EcoCard className="right-[40px] top-[420px] w-[240px] float-slow" rotate={-2}>
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-medium text-graphite">Identity Progress</p>
+            <HeartPulse size={13} strokeWidth={1.6} className="text-forest" />
+          </div>
+          <div className="mt-3 space-y-2">
+            {[
+              { l: "The kind who begins", v: 74 },
+              { l: "The kind who returns", v: 58 },
+            ].map((r) => (
+              <div key={r.l}>
+                <div className="mb-1 flex justify-between text-[10.5px] text-graphite/70">
+                  <span>{r.l}</span><span>{r.v}%</span>
+                </div>
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-forest/10">
+                  <div className="h-full rounded-full bg-forest" style={{ width: `${r.v}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </EcoCard>
+
+        <div className="card-premium float-slow absolute left-[45%] top-[10px] flex items-center gap-2 px-3 py-1.5">
+          <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-forest" />
+          <span className="text-[11px] text-graphite/80">Listening quietly</span>
+        </div>
+        <div className="card-premium float-slower absolute right-[36%] bottom-[10px] flex items-center gap-2 px-3 py-1.5">
+          <Lock size={11} strokeWidth={1.7} className="text-forest" />
+          <span className="text-[11px] text-graphite/80">End-to-end encrypted</span>
+        </div>
       </div>
     </div>
   );
