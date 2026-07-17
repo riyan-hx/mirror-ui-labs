@@ -1,4 +1,4 @@
-import logoAsset from "@/assets/lumidlogo.png.asset.json";
+import logoAsset from "@/assets/LumidLOGOV2.png.asset.json";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
