@@ -39,28 +39,28 @@
 :root {
   --radius: 1.25rem;
 
-  --warm: #F7F5EF;            /* warm white */
-  --background: #F7F5EF;
-  --foreground: #1B2321;      /* deep graphite */
-  --graphite: #1B2321;
+  --warm: #FFFFFF;            /* pure white */
+  --background: #FFFFFF;
+  --foreground: #0E1614;      /* near-black graphite */
+  --graphite: #0E1614;
 
-  --card: #FBFAF6;
-  --card-foreground: #1B2321;
-  --muted: #EFEDE5;
-  --muted-foreground: #5B6663;
+  --card: #FFFFFF;
+  --card-foreground: #0E1614;
+  --muted: #F4F6F3;
+  --muted-foreground: #566360;
 
-  --primary: #1F3D33;         /* deep forest */
-  --primary-foreground: #F7F5EF;
+  --primary: #14382C;         /* deep forest */
+  --primary-foreground: #FFFFFF;
 
   --accent: #B8D8B8;
-  --accent-foreground: #1B2321;
+  --accent-foreground: #0E1614;
 
-  --forest: #1F3D33;
-  --forest-deep: #10201B;
+  --forest: #14382C;
+  --forest-deep: #071612;
   --sage: #9FB89A;
   --mint: #C7E7C7;
 
-  --border: rgba(31, 61, 51, 0.10);
+  --border: rgba(14, 22, 20, 0.08);
 }
 
 @layer base {
