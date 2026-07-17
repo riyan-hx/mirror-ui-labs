@@ -714,7 +714,7 @@ function Home() {
                           stroke="#C7E7C7" strokeWidth="1.6" fill="none"/>
                       </svg>
                     </div>
-                    <div className="col-span-2 rounded-xl border border-white/8 bg-white/4 p-5">
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-2">
                       <p className="text-[11.5px] uppercase tracking-[0.2em] text-warm/50">Themes surfaced</p>
                       <div className="mt-3 flex flex-wrap gap-1.5">
                         {["avoidance", "self-worth", "return", "quiet consistency", "identity"].map((t)=>(
