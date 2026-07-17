@@ -110,7 +110,7 @@ function Nav() {
     <header className="sticky top-0 z-40 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:py-5">
         <a href="#top" className="flex items-center gap-2">
-          <img src={logoAsset.url} alt="Lumid" className="h-7 w-auto" />
+          <img src=src="/LumidLOGOV2.png" alt="Lumid" className="h-7 w-auto" />
         </a>
         <nav className="hidden items-center gap-1 text-[15px] font-medium text-graphite/70 md:flex">
           <a href="#product" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Product</a>
