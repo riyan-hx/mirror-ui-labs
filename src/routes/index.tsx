@@ -19,6 +19,10 @@ import {
   Eye,
   Fingerprint,
   BookOpen,
+  Mail,
+  Phone,
+  MapPin,
+  Send,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
