@@ -117,6 +117,8 @@ function Nav() {
           <a href="#clinic" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Clinicians</a>
           <span className="h-4 w-px bg-forest/10" />
           <a href="#privacy" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Privacy</a>
+          <span className="h-4 w-px bg-forest/10" />
+          <a href="#contact" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Contact</a>
         </nav>
         <div className="flex items-center gap-2">
           <button
