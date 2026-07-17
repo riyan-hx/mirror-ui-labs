@@ -378,24 +378,24 @@ function Home() {
 
       {/* HERO */}
       <section className="relative">
-        <div className="mx-auto max-w-6xl px-6 pt-24 text-center">
+        <div className="mx-auto max-w-6xl px-5 pt-14 text-center md:px-6 md:pt-24">
           <Eyebrow>A companion for emotional recovery</Eyebrow>
-          <h1 className="mx-auto mt-6 max-w-4xl text-[64px] leading-[1.02] tracking-[-0.03em] text-graphite md:text-[92px] font-extralight">
+          <h1 className="mx-auto mt-5 max-w-4xl text-[42px] leading-[1.05] tracking-[-0.03em] text-graphite font-extralight sm:text-[56px] md:mt-6 md:text-[92px] md:leading-[1.02]">
             Emotional intelligence,
             <br />
             <span className="italic text-forest font-light">quietly at work.</span>
           </h1>
-          <p className="mx-auto mt-7 max-w-xl text-[18px] leading-relaxed text-graphite/70">
+          <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-graphite/70 md:mt-7 md:text-[18px]">
             Lumid listens the way a thoughtful friend would — remembering, patterning, and gently returning you to the things that matter.
           </p>
-          <div className="mt-9 flex items-center justify-center gap-3">
-            <a href="#start" className="btn-primary group">
+          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-9">
+            <a href="#start" className="btn-primary group w-full justify-center sm:w-auto">
               Begin quietly
               <span className="grid h-7 w-7 place-items-center rounded-full bg-warm text-forest transition-transform group-hover:translate-x-0.5">
                 <ArrowUpRight size={13} strokeWidth={2} />
               </span>
             </a>
-            <a href="#demo" className="btn-ghost">
+            <a href="#demo" className="btn-ghost w-full justify-center sm:w-auto">
               <Play size={12} strokeWidth={2} className="fill-graphite" />
               Watch the film · 68s
             </a>
@@ -404,6 +404,7 @@ function Home() {
 
         <HeroEcosystem />
       </section>
+
 
       {/* Trust strip */}
       <section className="relative -mt-8 pb-20">
