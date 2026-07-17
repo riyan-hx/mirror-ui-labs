@@ -672,7 +672,7 @@ function RecoveryTimeline() {
         </div>
 
         <div className="mt-10 text-center">
-          <a href="#start" className="btn-primary shine">
+          <a href="https://chat.lumidai.in" target="_blank" rel="noopener noreferrer" className="btn-primary shine">
             Build my first plan
             <ArrowRight size={15} strokeWidth={1.9} />
           </a>
