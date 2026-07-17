@@ -31,6 +31,8 @@
   --color-mint: var(--mint);
   --color-warm: var(--warm);
   --color-graphite: var(--graphite);
+  --color-leaf: var(--leaf);
+
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
