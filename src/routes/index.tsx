@@ -138,6 +138,8 @@ function Nav() {
             <a href="#clinic" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Clinicians</a>
             <div className="mx-5 h-px bg-forest/8" />
             <a href="#privacy" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Privacy</a>
+            <div className="mx-5 h-px bg-forest/8" />
+            <a href="#contact" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Contact</a>
           </div>
         </div>
       ) : null}
