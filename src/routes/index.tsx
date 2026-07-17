@@ -604,7 +604,7 @@ function Home() {
             <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
               Not a productivity app.
               <br />
-              <span className="italic text-forest font-extralight">A companion for emotional avoidance.</span>
+              <span className="font-editorial text-gradient-forest">A companion for emotional avoidance.</span>
             </h2>
             <p className="mt-6 text-[18px] leading-relaxed text-graphite/70">
               Procrastination isn't laziness — it's a story about safety. Lumid follows the whole arc.
