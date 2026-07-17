@@ -1,10 +1,10 @@
+import logoAsset from "@/assets/LumidLOGOV2.png.asset.json";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ArrowRight,
   Sparkles,
-  Leaf,
   ShieldCheck,
   Lock,
   Check,
