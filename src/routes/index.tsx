@@ -743,7 +743,7 @@ function Compare() {
                 {a ? <Check size={16} strokeWidth={2.4} className="text-forest" /> : <span className="text-graphite/30">—</span>}
               </span>
               <span className="flex justify-center text-graphite/45">
-                {b === true ? <Check size={16} /> : b === "sometimes" ? "sometimes" : "—"}
+                {b === "sometimes" ? "sometimes" : "—"}
               </span>
             </div>
           ))}
