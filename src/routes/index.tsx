@@ -1041,8 +1041,8 @@ function ContactSection() {
                   <Phone size={18} strokeWidth={1.8} />
                 </div>
                 <div>
-                  <p className="text-[15px] font-semibold text-graphite">Book a call</p>
-                  <a href="#" className="mt-1 block text-[15px] text-graphite/65 hover:text-forest">Schedule a 15-min intro</a>
+                  <p className="text-[15px] font-semibold text-graphite">Call now</p>
+                  <a href="tel:+918590174679" className="mt-1 block text-[15px] text-graphite/65 hover:text-forest">+91 85901 74679</a>
                   <p className="mt-1 text-[13px] text-graphite/45">Available for clinicians and teams.</p>
                 </div>
               </div>
