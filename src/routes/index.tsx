@@ -407,7 +407,7 @@ function Home() {
 
 
       {/* Trust strip */}
-      <section className="relative -mt-8 pb-20">
+      <section className="relative mt-16 pb-14 md:-mt-8 md:pb-20">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 text-center">
             <div className="h-px flex-1 bg-graphite/10" />
