@@ -408,7 +408,7 @@ function Home() {
 
       {/* Trust strip */}
       <section className="relative -mt-8 pb-20">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 text-center">
             <div className="h-px flex-1 bg-graphite/10" />
             <p className="text-[12px] tracking-[0.22em] text-graphite/50 uppercase">Trusted in quiet corners of care</p>
@@ -426,11 +426,11 @@ function Home() {
       </section>
 
       {/* STORY / JOURNEY */}
-      <section id="story" className="relative py-28">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="story" className="relative py-16 md:py-28">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-3xl">
             <Eyebrow>The journey Lumid holds</Eyebrow>
-            <h2 className="mt-6 text-[56px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[64px]">
+            <h2 className="mt-6 text-[34px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[46px] md:text-[64px] md:leading-[1.05]">
               From the first uncertain feeling
               <br />
               <span className="text-forest italic font-extralight">to the person you are becoming.</span>
@@ -463,12 +463,12 @@ function Home() {
       </section>
 
       {/* PRODUCT FEATURES — each a small preview */}
-      <section id="product" className="relative py-24">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="product" className="relative py-14 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
               <Eyebrow>Product</Eyebrow>
-              <h2 className="mt-6 text-[52px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[60px]">
+              <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
                 A quiet operating system for the inner life.
               </h2>
             </div>
@@ -477,11 +477,11 @@ function Home() {
 
           <div className="mt-16 grid grid-cols-12 gap-5">
             {/* Timeline preview */}
-            <div className="card-premium col-span-12 overflow-hidden p-8 md:col-span-7">
+            <div className="card-premium col-span-12 overflow-hidden p-6 md:p-8 md:col-span-7">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="eyebrow">Timeline</p>
-                  <h3 className="mt-3 text-[28px] font-light tracking-tight text-graphite">A memory of how you moved.</h3>
+                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">A memory of how you moved.</h3>
                   <p className="mt-2 max-w-md text-[15px] leading-relaxed text-graphite/65">
                     Every reflection stitched into a soft chronology only you can read.
                   </p>
@@ -512,11 +512,11 @@ function Home() {
             </div>
 
             {/* Pattern recognition */}
-            <div className="card-premium col-span-12 p-8 md:col-span-5">
+            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-5">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="eyebrow">Pattern recognition</p>
-                  <h3 className="mt-3 text-[28px] font-light tracking-tight text-graphite">The shape underneath the moment.</h3>
+                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">The shape underneath the moment.</h3>
                 </div>
                 <BrainCircuit size={18} strokeWidth={1.4} className="text-forest/70" />
               </div>
@@ -540,9 +540,9 @@ function Home() {
             </div>
 
             {/* Memory */}
-            <div className="card-premium col-span-12 p-8 md:col-span-5">
+            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-5">
               <p className="eyebrow">Memory</p>
-              <h3 className="mt-3 text-[28px] font-light tracking-tight text-graphite">Your words, kept safe.</h3>
+              <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">Your words, kept safe.</h3>
               <div className="mt-6 grid grid-cols-2 gap-3">
                 {[
                   "The thing I keep circling is worth naming.",
@@ -558,11 +558,11 @@ function Home() {
             </div>
 
             {/* Recovery Plan */}
-            <div className="card-premium col-span-12 p-8 md:col-span-7">
+            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-7">
               <div className="flex items-start justify-between">
                 <div>
                   <p className="eyebrow">Recovery plan</p>
-                  <h3 className="mt-3 text-[28px] font-light tracking-tight text-graphite">Small returns, gently scheduled.</h3>
+                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">Small returns, gently scheduled.</h3>
                 </div>
                 <Sparkles size={18} strokeWidth={1.4} className="text-forest/70" />
               </div>
@@ -593,11 +593,11 @@ function Home() {
       </section>
 
       {/* PROCRASTINATION TIMELINE */}
-      <section className="relative py-28">
-        <div className="mx-auto max-w-6xl px-6">
+      <section className="relative py-16 md:py-28">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-2xl">
             <Eyebrow>The difference</Eyebrow>
-            <h2 className="mt-6 text-[52px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[60px]">
+            <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
               Not a productivity app.
               <br />
               <span className="italic text-forest font-extralight">A companion for emotional avoidance.</span>
@@ -607,7 +607,7 @@ function Home() {
             </p>
           </div>
 
-          <div className="card-premium mt-14 overflow-hidden p-10">
+          <div className="card-premium mt-10 md:mt-14 overflow-hidden p-6 md:p-10">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-7">
               {[
                 { t: "Task", d: "A block appears.", i: <Compass size={14} /> },
@@ -636,8 +636,8 @@ function Home() {
       </section>
 
       {/* CLINIC DASHBOARD */}
-      <section id="clinic" className="relative py-28">
-        <div className="mx-auto max-w-6xl px-6">
+      <section id="clinic" className="relative py-16 md:py-28">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-3xl">
             <Eyebrow>For clinicians</Eyebrow>
             <h2 className="mt-6 text-[52px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[64px]">
@@ -733,10 +733,10 @@ function Home() {
       </section>
 
       {/* PRIVACY */}
-      <section id="privacy" className="relative py-28">
+      <section id="privacy" className="relative py-16 md:py-28">
         <div className="mx-auto max-w-6xl px-6 text-center">
           <Eyebrow>Privacy is the product</Eyebrow>
-          <h2 className="mx-auto mt-6 max-w-3xl text-[52px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[60px]">
+          <h2 className="mx-auto mt-6 max-w-3xl text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
             Your inner life belongs to you.
           </h2>
           <p className="mx-auto mt-6 max-w-xl text-[18px] leading-relaxed text-graphite/70">
@@ -761,8 +761,8 @@ function Home() {
       </section>
 
       {/* CTA */}
-      <section id="start" className="relative py-24">
-        <div className="mx-auto max-w-5xl px-6">
+      <section id="start" className="relative py-14 md:py-24">
+        <div className="mx-auto max-w-5xl px-5 md:px-6">
           <div className="relative overflow-hidden rounded-[36px] border border-forest/15 bg-gradient-to-br from-forest to-forest-deep p-14 text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.6)]">
             <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-mint/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl" />
@@ -770,7 +770,7 @@ function Home() {
             <div className="relative flex flex-wrap items-end justify-between gap-8">
               <div className="max-w-xl">
                 <p className="eyebrow text-warm/60">Begin, quietly</p>
-                <h3 className="mt-5 text-[44px] leading-[1.05] font-light tracking-tight md:text-[56px]">
+                <h3 className="mt-5 text-[30px] leading-[1.08] font-light tracking-tight sm:text-[38px] md:text-[56px] md:leading-[1.05]">
                   A companion that returns you to yourself.
                 </h3>
                 <p className="mt-4 text-[16px] leading-relaxed text-warm/70">
@@ -793,7 +793,7 @@ function Home() {
 
       {/* FOOTER */}
       <footer className="relative border-t border-graphite/10 pt-16 pb-10">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="flex flex-wrap items-start justify-between gap-10">
             <div className="max-w-md">
               <div className="flex items-center gap-2.5">
