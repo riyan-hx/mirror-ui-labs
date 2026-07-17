@@ -390,7 +390,7 @@ function Home() {
             Lumid listens the way a thoughtful friend would — remembering, patterning, and gently returning you to the things that matter.
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-9">
-            <a href="#start" className="btn-primary group w-full justify-center sm:w-auto">
+            <a href="#start" className="btn-primary shine group w-full justify-center sm:w-auto">
               Begin quietly
               <span className="grid h-7 w-7 place-items-center rounded-full bg-warm text-forest transition-transform group-hover:translate-x-0.5">
                 <ArrowUpRight size={13} strokeWidth={2} />
@@ -554,7 +554,7 @@ function Home() {
                   "Rest is not the opposite of return.",
                   "My smallness is not a verdict.",
                 ].map((q) => (
-                  <div key={q} className="rounded-xl border border-forest/10 bg-warm/70 p-3 text-[13px] leading-snug text-graphite/80">
+                  <div key={q} className="rise rounded-xl border border-forest/10 bg-gradient-to-br from-white to-mint/40 p-3 text-[13px] leading-snug text-graphite/80">
                     "{q}"
                   </div>
                 ))}
@@ -577,7 +577,7 @@ function Home() {
                   { t: "Write for eleven minutes", s: "before the day pulls", p: 42 },
                   { t: "Close with a single line", s: "reflection · saved to memory", p: 12 },
                 ].map((r) => (
-                  <div key={r.t} className="flex items-center gap-4 rounded-xl border border-forest/8 bg-warm/70 px-4 py-3">
+                  <div key={r.t} className="rise flex items-center gap-4 rounded-xl border border-forest/10 bg-gradient-to-r from-white to-mint/30 px-4 py-3">
                     <div className="grid h-8 w-8 place-items-center rounded-full bg-forest/8 text-forest">
                       <Check size={14} strokeWidth={2} />
                     </div>
