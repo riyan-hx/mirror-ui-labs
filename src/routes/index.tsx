@@ -107,10 +107,12 @@ function Nav() {
         <a href="#top" className="flex items-center gap-2">
           <img src={logoAsset.url} alt="Lumid" className="h-7 w-auto" />
         </a>
-        <nav className="hidden items-center gap-8 text-[14px] text-graphite/70 md:flex">
-          <a href="#product" className="hover:text-graphite">Product</a>
-          <a href="#clinic" className="hover:text-graphite">Clinicians</a>
-          <a href="#privacy" className="hover:text-graphite">Privacy</a>
+        <nav className="hidden items-center gap-1 text-[15px] font-medium text-graphite/70 md:flex">
+          <a href="#product" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Product</a>
+          <span className="h-4 w-px bg-forest/10" />
+          <a href="#clinic" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Clinicians</a>
+          <span className="h-4 w-px bg-forest/10" />
+          <a href="#privacy" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Privacy</a>
         </nav>
         <div className="flex items-center gap-2">
           <button
@@ -123,11 +125,13 @@ function Nav() {
         </div>
       </div>
       {open ? (
-        <div className="mx-4 mb-3 rounded-2xl border border-forest/10 bg-white/95 p-4 shadow-xl md:hidden">
-          <div className="flex flex-col gap-3 text-[15px] text-graphite/80">
-            <a href="#product" onClick={() => setOpen(false)}>Product</a>
-            <a href="#clinic" onClick={() => setOpen(false)}>Clinicians</a>
-            <a href="#privacy" onClick={() => setOpen(false)}>Privacy</a>
+        <div className="mx-4 mb-3 overflow-hidden rounded-3xl border border-forest/10 bg-white/97 shadow-2xl md:hidden">
+          <div className="flex flex-col py-3 text-[17px] font-medium text-graphite/85">
+            <a href="#product" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Product</a>
+            <div className="mx-5 h-px bg-forest/8" />
+            <a href="#clinic" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Clinicians</a>
+            <div className="mx-5 h-px bg-forest/8" />
+            <a href="#privacy" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Privacy</a>
           </div>
         </div>
       ) : null}
