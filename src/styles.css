@@ -203,8 +203,6 @@
 @utility shine {
   position: relative;
   overflow: hidden;
-}
-@utility shine {
   &::after {
     content: "";
     position: absolute; inset: 0;
@@ -219,8 +217,6 @@
 /* Soft rise on hover for interactive rows */
 @utility rise {
   transition: transform 260ms ease, box-shadow 260ms ease;
-}
-@utility rise {
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 14px 30px -18px rgba(27, 94, 70, 0.28);
