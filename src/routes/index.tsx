@@ -1047,18 +1047,6 @@ function ContactSection() {
                 </div>
               </div>
             </div>
-            <div className="card-premium card-cream p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/80 text-forest-deep">
-                  <MapPin size={18} strokeWidth={1.8} />
-                </div>
-                <div>
-                  <p className="text-[15px] font-semibold text-graphite">Based in</p>
-                  <p className="mt-1 text-[15px] text-graphite/65">Remote-first, global team</p>
-                  <p className="mt-1 text-[13px] text-graphite/45">Working across time zones for care.</p>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
