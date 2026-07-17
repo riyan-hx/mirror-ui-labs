@@ -263,25 +263,30 @@
 }
 
 /* Little decorative corner sprig — used with mask-composite or inline SVG */
-@utility sprig-tl::before {
-  content: "";
-  position: absolute;
-  top: -14px;
-  left: -14px;
-  width: 42px;
-  height: 42px;
-  border-top: 1px solid rgba(62, 139, 110, 0.35);
-  border-left: 1px solid rgba(62, 139, 110, 0.35);
-  border-top-left-radius: 14px;
+@utility sprig-tl {
+  &::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: -14px;
+    width: 42px;
+    height: 42px;
+    border-top: 1px solid rgba(62, 139, 110, 0.35);
+    border-left: 1px solid rgba(62, 139, 110, 0.35);
+    border-top-left-radius: 14px;
+  }
 }
-@utility sprig-br::after {
-  content: "";
-  position: absolute;
-  bottom: -14px;
-  right: -14px;
-  width: 42px;
-  height: 42px;
-  border-bottom: 1px solid rgba(62, 139, 110, 0.35);
-  border-right: 1px solid rgba(62, 139, 110, 0.35);
-  border-bottom-right-radius: 14px;
+@utility sprig-br {
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    right: -14px;
+    width: 42px;
+    height: 42px;
+    border-bottom: 1px solid rgba(62, 139, 110, 0.35);
+    border-right: 1px solid rgba(62, 139, 110, 0.35);
+    border-bottom-right-radius: 14px;
+  }
 }
+
