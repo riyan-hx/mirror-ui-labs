@@ -384,7 +384,7 @@ function Home() {
           <h1 className="mx-auto mt-5 max-w-4xl text-[42px] leading-[1.05] tracking-[-0.03em] text-graphite font-extralight sm:text-[56px] md:mt-6 md:text-[92px] md:leading-[1.02]">
             Emotional intelligence,
             <br />
-            <span className="italic text-forest font-light">quietly at work.</span>
+            <span className="font-editorial text-gradient-forest">quietly at work.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-graphite/70 md:mt-7 md:text-[18px]">
             Lumid listens the way a thoughtful friend would — remembering, patterning, and gently returning you to the things that matter.
