@@ -63,12 +63,17 @@
   --accent: #CDE9CE;
   --accent-foreground: #0E1614;
 
-  /* Lumid palette — lighter, brighter greens */
-  --forest: #3E8B6E;           /* secondary/brand green (Lumid) — lighter */
-  --forest-deep: #1F4A3A;      /* deep contrast for buttons only */
-  --sage: #A9CDB0;
-  --mint: #DCF1DA;
-  --leaf: #6FB58C;
+  /* Lumid palette — brighter, professional */
+  --forest: #2FA37A;           /* brighter Lumid green */
+  --forest-deep: #1B5E46;      /* deep contrast for buttons */
+  --sage: #A9DDB8;
+  --mint: #DFF6E1;
+  --leaf: #62C48A;
+  --lime: #B7EF8A;             /* zesty accent */
+  --amber: #F4B860;            /* warm highlight */
+  --sky: #7FB8E6;              /* cool accent */
+  --coral: #F08A6E;            /* editorial pop */
+  --cream: #FBF7EE;
 
   --border: rgba(14, 22, 20, 0.07);
 
