@@ -105,10 +105,7 @@ function Nav() {
     <header className="sticky top-0 z-40 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:py-5">
         <a href="#top" className="flex items-center gap-2">
-          <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm shadow-[0_8px_18px_-8px_rgba(27,94,70,0.7)]">
-            <Leaf size={14} strokeWidth={1.8} />
-          </div>
-          <span className="text-[18px] font-semibold tracking-tight text-graphite">Lumid</span>
+          <img src={logoAsset.url} alt="Lumid" className="h-7 w-auto" />
         </a>
         <nav className="hidden items-center gap-8 text-[14px] text-graphite/70 md:flex">
           <a href="#product" className="hover:text-graphite">Product</a>
@@ -917,9 +914,7 @@ function Footer() {
     <footer className="border-t border-forest/8 bg-white/60 px-5 py-10 backdrop-blur md:px-6">
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div className="flex items-center gap-2.5">
-          <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm">
-            <Leaf size={14} strokeWidth={1.8} />
-          </div>
+          <img src={logoAsset.url} alt="Lumid" className="h-7 w-auto" />
           <div>
             <p className="text-[15px] font-semibold text-graphite">Lumid</p>
             <p className="text-[12px] text-graphite/55">An Emotional Operating System</p>
