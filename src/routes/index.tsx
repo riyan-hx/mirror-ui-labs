@@ -46,7 +46,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 function Nav() {
   return (
     <header className="relative z-30">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 pt-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 pt-5 md:px-6 md:pt-6">
         <div className="flex items-center gap-2.5">
           <div className="grid h-8 w-8 place-items-center rounded-full bg-forest text-warm shadow-[0_6px_16px_-6px_rgba(16,32,27,0.6)]">
             <Leaf size={15} strokeWidth={1.6} />
@@ -764,7 +764,7 @@ function Home() {
       {/* CTA */}
       <section id="start" className="relative py-14 md:py-24">
         <div className="mx-auto max-w-5xl px-5 md:px-6">
-          <div className="relative overflow-hidden rounded-[36px] border border-forest/15 bg-gradient-to-br from-forest to-forest-deep p-14 text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.6)]">
+          <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-forest/15 bg-gradient-to-br from-forest to-forest-deep p-7 md:p-14 text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.6)]">
             <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-mint/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl" />
 
@@ -795,7 +795,7 @@ function Home() {
       {/* FOOTER */}
       <footer className="relative border-t border-graphite/10 pt-16 pb-10">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="flex flex-wrap items-start justify-between gap-10">
+          <div className="flex flex-col gap-10 md:flex-row md:flex-wrap md:items-start md:justify-between">
             <div className="max-w-md">
               <div className="flex items-center gap-2.5">
                 <div className="grid h-8 w-8 place-items-center rounded-full bg-forest text-warm">
@@ -808,7 +808,7 @@ function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-14 text-[14px]">
+            <div className="grid grid-cols-2 gap-8 text-[14px] sm:grid-cols-3 sm:gap-14">
               {[
                 { h: "Product", l: ["Timeline","Memory","Recovery Plan","Clinic"] },
                 { h: "Company", l: ["Story","Manifesto","Careers","Press"] },
