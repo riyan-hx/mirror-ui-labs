@@ -135,8 +135,6 @@
   border-radius: 28px;
   transition: transform 380ms cubic-bezier(.2,.7,.2,1), box-shadow 380ms ease, border-color 380ms ease;
   will-change: transform;
-}
-@utility card-premium {
   &:hover {
     transform: translateY(-4px);
     border-color: rgba(47, 163, 122, 0.22);
