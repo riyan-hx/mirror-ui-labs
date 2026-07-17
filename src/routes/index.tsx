@@ -19,6 +19,10 @@ import {
   Eye,
   Fingerprint,
   BookOpen,
+  Mail,
+  Phone,
+  MapPin,
+  Send,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -113,6 +117,8 @@ function Nav() {
           <a href="#clinic" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Clinicians</a>
           <span className="h-4 w-px bg-forest/10" />
           <a href="#privacy" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Privacy</a>
+          <span className="h-4 w-px bg-forest/10" />
+          <a href="#contact" className="rounded-xl px-4 py-2.5 transition-colors hover:bg-forest/[0.04] hover:text-graphite">Contact</a>
         </nav>
         <div className="flex items-center gap-2">
           <button
@@ -132,6 +138,8 @@ function Nav() {
             <a href="#clinic" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Clinicians</a>
             <div className="mx-5 h-px bg-forest/8" />
             <a href="#privacy" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Privacy</a>
+            <div className="mx-5 h-px bg-forest/8" />
+            <a href="#contact" onClick={() => setOpen(false)} className="px-5 py-4 transition-colors hover:bg-forest/[0.03] hover:text-graphite">Contact</a>
           </div>
         </div>
       ) : null}
@@ -829,6 +837,17 @@ function ClinicStory() {
             </div>
           </div>
         </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 rounded-3xl border border-forest/10 bg-white/70 p-6 text-center shadow-sm sm:flex-row sm:p-8">
+          <div className="text-left">
+            <p className="text-[15px] font-semibold text-graphite">Interested in Lumid for your clinic?</p>
+            <p className="text-[14px] text-graphite/60">Reach out and we'll set up a private pilot.</p>
+          </div>
+          <a href="#contact" className="btn-primary shine w-full justify-center sm:w-auto">
+            Contact us
+            <ArrowRight size={15} strokeWidth={1.9} />
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -913,6 +932,120 @@ function CTA() {
   );
 }
 
+/* ============================================================ */
+/*  10. Contact us                                               */
+/* ============================================================ */
+
+function ContactSection() {
+  return (
+    <section id="contact" className="section-y warm-bg relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="Get in touch"
+          title="Let's build the next version of"
+          italic="your care."
+          sub="Questions, pilots, or partnership ideas — we're here to listen."
+          tone="sky"
+        />
+
+        <div className="mt-14 grid gap-6 md:grid-cols-12">
+          {/* Contact form card */}
+          <div className="card-premium md:col-span-7 p-6 sm:p-8">
+            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <label htmlFor="contact-name" className="text-[13px] font-semibold text-graphite/80">Name</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    placeholder="Ada Lovelace"
+                    className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="contact-email" className="text-[13px] font-semibold text-graphite/80">Email</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    placeholder="ada@clinic.org"
+                    className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="contact-role" className="text-[13px] font-semibold text-graphite/80">I am a</label>
+                <select
+                  id="contact-role"
+                  className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
+                >
+                  <option>Individual seeking support</option>
+                  <option>Clinician / psychologist</option>
+                  <option>Clinic or health system</option>
+                  <option>Investor or journalist</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="contact-message" className="text-[13px] font-semibold text-graphite/80">Message</label>
+                <textarea
+                  id="contact-message"
+                  rows={5}
+                  placeholder="Tell us what you're working on..."
+                  className="w-full resize-none rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
+                />
+              </div>
+              <button type="submit" className="btn-primary shine w-full justify-center sm:w-auto">
+                <Send size={15} strokeWidth={1.9} />
+                Send message
+              </button>
+            </form>
+          </div>
+
+          {/* Contact details card */}
+          <div className="md:col-span-5 space-y-5">
+            <div className="card-premium card-sky p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/80 text-forest-deep">
+                  <Mail size={18} strokeWidth={1.8} />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-graphite">Email us</p>
+                  <a href="mailto:hello@lumid.app" className="mt-1 block text-[15px] text-graphite/65 hover:text-forest">hello@lumid.app</a>
+                  <p className="mt-1 text-[13px] text-graphite/45">We reply within one business day.</p>
+                </div>
+              </div>
+            </div>
+            <div className="card-premium card-mint p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/80 text-forest-deep">
+                  <Phone size={18} strokeWidth={1.8} />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-graphite">Book a call</p>
+                  <a href="#" className="mt-1 block text-[15px] text-graphite/65 hover:text-forest">Schedule a 15-min intro</a>
+                  <p className="mt-1 text-[13px] text-graphite/45">Available for clinicians and teams.</p>
+                </div>
+              </div>
+            </div>
+            <div className="card-premium card-cream p-6 sm:p-8">
+              <div className="flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-white/80 text-forest-deep">
+                  <MapPin size={18} strokeWidth={1.8} />
+                </div>
+                <div>
+                  <p className="text-[15px] font-semibold text-graphite">Based in</p>
+                  <p className="mt-1 text-[15px] text-graphite/65">Remote-first, global team</p>
+                  <p className="mt-1 text-[13px] text-graphite/45">Working across time zones for care.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   return (
     <footer className="border-t border-forest/8 bg-white/60 px-5 py-10 backdrop-blur md:px-6">
@@ -925,7 +1058,7 @@ function Footer() {
           <a href="#product" className="hover:text-graphite">Product</a>
           <a href="#clinic" className="hover:text-graphite">Clinicians</a>
           <a href="#privacy" className="hover:text-graphite">Privacy</a>
-          <a href="#" className="hover:text-graphite">Contact</a>
+          <a href="#contact" className="hover:text-graphite">Contact</a>
         </div>
         <p className="text-[12px] text-graphite/50">© {new Date().getFullYear()} Lumid</p>
       </div>
@@ -950,6 +1083,7 @@ function Home() {
       <ClinicStory />
       <Privacy />
       <CTA />
+      <ContactSection />
       <Footer />
     </main>
   );
