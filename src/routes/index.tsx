@@ -1,841 +1,970 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
+  ArrowRight,
   Sparkles,
-  MessageCircle,
-  Waves,
-  Compass,
-  ShieldCheck,
-  LineChart,
-  Clock,
   Leaf,
-  BrainCircuit,
-  HeartPulse,
+  ShieldCheck,
   Lock,
   Check,
-  Play,
+  Menu,
+  Waves,
+  Flame,
+  Brain,
+  Calendar,
+  Activity,
+  MessageCircle,
+  Users,
+  Eye,
+  Fingerprint,
+  BookOpen,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Lumid — Emotional intelligence, quietly at work" },
+      { title: "Lumid — An Emotional Operating System" },
       {
         name: "description",
         content:
-          "Lumid is an AI companion for emotional recovery — private conversations, behavioral memory, and clinician insights that extend care beyond the session.",
+          "Lumid is an Emotional Operating System — an AI that understands your patterns, builds recovery plans, and remembers your growth.",
       },
     ],
   }),
   component: Home,
 });
 
-/* ------------------------------------------------------------------ */
-/*  Small building blocks                                              */
-/* ------------------------------------------------------------------ */
+/* ============================================================ */
+/*  Primitives                                                   */
+/* ============================================================ */
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
+function Eyebrow({ children, tone = "forest" }: { children: React.ReactNode; tone?: "forest" | "amber" | "sky" | "coral" }) {
+  const dot: Record<string, string> = {
+    forest: "bg-leaf shadow-[0_0_0_5px_rgba(111,181,140,0.18)]",
+    amber: "bg-amber shadow-[0_0_0_5px_rgba(244,184,96,0.22)]",
+    sky: "bg-sky shadow-[0_0_0_5px_rgba(127,184,230,0.22)]",
+    coral: "bg-coral shadow-[0_0_0_5px_rgba(240,138,110,0.22)]",
+  };
   return (
     <div className="inline-flex items-center gap-2.5 eyebrow">
-      <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-leaf shadow-[0_0_0_4px_rgba(111,181,140,0.18)]" />
+      <span className={`relative inline-block h-1.5 w-1.5 rounded-full ${dot[tone]}`} />
       {children}
     </div>
   );
 }
 
+function SectionHeader({
+  eyebrow,
+  title,
+  italic,
+  sub,
+  tone = "forest",
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  italic?: React.ReactNode;
+  sub?: React.ReactNode;
+  tone?: "forest" | "amber" | "sky" | "coral";
+}) {
+  return (
+    <div className="mx-auto max-w-3xl text-center">
+      <Eyebrow tone={tone}>{eyebrow}</Eyebrow>
+      <h2 className="mt-5 text-[32px] leading-[1.05] tracking-tight sm:text-[40px] md:text-[56px]">
+        {title}
+        {italic ? (
+          <>
+            {" "}
+            <span className="font-editorial text-gradient-forest">{italic}</span>
+          </>
+        ) : null}
+      </h2>
+      {sub ? (
+        <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-graphite/65 sm:text-[17px]">{sub}</p>
+      ) : null}
+    </div>
+  );
+}
+
+function TrustPill({ icon: Icon, label }: { icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>; label: string }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-forest/12 bg-white/80 px-3 py-1.5 text-[11px] font-medium text-graphite/75 backdrop-blur">
+      <Icon size={12} strokeWidth={1.75} className="text-forest" />
+      {label}
+    </span>
+  );
+}
+
+/* ============================================================ */
+/*  Nav                                                          */
+/* ============================================================ */
 
 function Nav() {
+  const [open, setOpen] = useState(false);
   return (
-    <header className="relative z-30">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 pt-5 md:px-6 md:pt-6">
-        <div className="flex items-center gap-2.5">
-          <div className="grid h-8 w-8 place-items-center rounded-full bg-forest text-warm shadow-[0_6px_16px_-6px_rgba(16,32,27,0.6)]">
-            <Leaf size={15} strokeWidth={1.6} />
+    <header className="sticky top-0 z-40 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:py-5">
+        <a href="#top" className="flex items-center gap-2">
+          <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm shadow-[0_8px_18px_-8px_rgba(27,94,70,0.7)]">
+            <Leaf size={14} strokeWidth={1.8} />
           </div>
-          <span className="text-[19px] font-medium tracking-tight text-graphite">Lumid</span>
-        </div>
-        <nav className="hidden items-center gap-9 text-[14px] text-graphite/75 md:flex">
+          <span className="text-[18px] font-semibold tracking-tight text-graphite">Lumid</span>
+        </a>
+        <nav className="hidden items-center gap-8 text-[14px] text-graphite/70 md:flex">
           <a href="#product" className="hover:text-graphite">Product</a>
-          <a href="#clinic" className="hover:text-graphite">For Clinicians</a>
+          <a href="#clinic" className="hover:text-graphite">Clinicians</a>
           <a href="#privacy" className="hover:text-graphite">Privacy</a>
-          <a href="#story" className="hover:text-graphite">Story</a>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#signin" className="hidden text-[14px] text-graphite/75 hover:text-graphite md:inline">Sign in</a>
-          <a href="#start" className="btn-ghost">
-            Get Lumid
-            <ArrowUpRight size={14} strokeWidth={1.75} />
+          <a href="#start" className="btn-primary shine text-[13px] md:text-[14px]">
+            Try Lumid
+            <ArrowUpRight size={14} strokeWidth={1.9} />
           </a>
+          <button
+            aria-label="Menu"
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-10 w-10 place-items-center rounded-full border border-forest/15 bg-white/80 text-graphite md:hidden"
+          >
+            <Menu size={16} strokeWidth={1.8} />
+          </button>
         </div>
       </div>
+      {open ? (
+        <div className="mx-4 mb-3 rounded-2xl border border-forest/10 bg-white/95 p-4 shadow-xl md:hidden">
+          <div className="flex flex-col gap-3 text-[15px] text-graphite/80">
+            <a href="#product" onClick={() => setOpen(false)}>Product</a>
+            <a href="#clinic" onClick={() => setOpen(false)}>Clinicians</a>
+            <a href="#privacy" onClick={() => setOpen(false)}>Privacy</a>
+          </div>
+        </div>
+      ) : null}
     </header>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Phone mockup (SVG-driven, product-grade)                           */
-/* ------------------------------------------------------------------ */
+/* ============================================================ */
+/*  1. HERO — live product experience                            */
+/* ============================================================ */
 
-function PhoneMockup() {
+const HERO_STEPS = [
+  {
+    tag: "You said",
+    tagTone: "graphite",
+    body: "I keep putting off the report. I don't know why.",
+    hint: "Tuesday, 9:41",
+  },
+  {
+    tag: "Lumid noticed",
+    tagTone: "forest",
+    body: "This is the third avoidance around evaluative tasks this month.",
+    hint: "Pattern detected",
+  },
+  {
+    tag: "Recovery plan",
+    tagTone: "amber",
+    body: "8 minutes. Open the doc. Write one messy paragraph. Close.",
+    hint: "For today",
+  },
+  {
+    tag: "One week later",
+    tagTone: "sky",
+    body: "You showed up 5 of 7 days. Avoidance dropped by 42%.",
+    hint: "Progress",
+  },
+] as const;
+
+function useAutoStep(length: number, delay = 2600) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % length), delay);
+    return () => clearInterval(t);
+  }, [length, delay]);
+  return i;
+}
+
+function PhoneLive() {
+  const step = useAutoStep(HERO_STEPS.length, 2800);
   return (
-    <div className="relative mx-auto w-[300px]">
-      {/* Ambient halo */}
-      <div className="pointer-events-none absolute -inset-16 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(199,231,199,0.55),transparent_70%)] blur-2xl" />
-      <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-[radial-gradient(closest-side,rgba(31,61,51,0.18),transparent_70%)] blur-xl" />
+    <div className="relative mx-auto w-[280px] sm:w-[300px]">
+      {/* ambient halo */}
+      <div className="pointer-events-none absolute -inset-14 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(199,231,199,0.6),transparent_70%)] blur-2xl breathe" />
+      <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-[radial-gradient(closest-side,rgba(47,163,122,0.22),transparent_70%)] blur-xl" />
 
-      <div
-        className="relative overflow-hidden rounded-[42px] border border-white/60 bg-[#0f1a17] p-2 shadow-[0_50px_120px_-40px_rgba(16,32,27,0.45),0_20px_40px_-20px_rgba(16,32,27,0.35)]"
-      >
-        <div className="relative overflow-hidden rounded-[34px] bg-gradient-to-b from-[#f7f5ef] to-[#eef2ea] p-4">
+      <div className="relative overflow-hidden rounded-[44px] border border-white/70 bg-[#0f1a17] p-2 shadow-[0_60px_130px_-40px_rgba(16,32,27,0.5),0_20px_40px_-20px_rgba(16,32,27,0.35)]">
+        <div className="relative overflow-hidden rounded-[36px] bg-gradient-to-b from-[#F8F6EF] to-[#EAF2E7] p-4">
           {/* status */}
-          <div className="mb-3 flex items-center justify-between px-1 text-[10px] text-graphite/60">
+          <div className="mb-3 flex items-center justify-between px-1 text-[10px] text-graphite/55">
             <span>9:41</span>
-            <div className="flex items-center gap-1">
+            <span className="inline-flex items-center gap-1">
               <span className="h-1.5 w-1.5 rounded-full bg-forest/50" />
               <span className="h-1.5 w-1.5 rounded-full bg-forest/50" />
               <span className="h-1.5 w-1.5 rounded-full bg-forest/50" />
-            </div>
+            </span>
           </div>
 
           {/* greeting */}
-          <div className="mb-3">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-graphite/50">Tuesday, quiet morning</p>
+          <div className="mb-4">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-graphite/45">Tuesday</p>
             <p className="mt-1 text-[19px] leading-tight text-graphite">
-              Good morning, <span className="text-forest">Ada</span>.
+              Good morning, <span className="font-editorial text-forest">Ada</span>.
             </p>
-            <p className="text-[12px] text-graphite/60">You slept 7h 12m. Yesterday felt heavier than usual.</p>
           </div>
 
-          {/* AI conversation card */}
-          <div className="mb-3 rounded-2xl border border-forest/10 bg-white/85 p-3 shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_10px_24px_-14px_rgba(16,32,27,0.25)]">
-            <div className="flex items-center gap-2">
-              <div className="grid h-6 w-6 place-items-center rounded-full bg-forest text-warm">
-                <Sparkles size={11} strokeWidth={1.6} />
+          {/* live storytelling cards */}
+          <div className="relative h-[260px]">
+            {HERO_STEPS.map((s, idx) => {
+              const active = idx === step;
+              return (
+                <div
+                  key={idx}
+                  className="absolute inset-0 transition-all duration-700"
+                  style={{
+                    opacity: active ? 1 : 0,
+                    transform: active ? "translateY(0) scale(1)" : "translateY(10px) scale(.98)",
+                    filter: active ? "blur(0)" : "blur(4px)",
+                    pointerEvents: active ? "auto" : "none",
+                  }}
+                >
+                  <div className="rounded-2xl border border-forest/10 bg-white/90 p-3 shadow-[0_1px_0_rgba(255,255,255,0.9)_inset,0_16px_36px_-18px_rgba(16,32,27,0.25)]">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-mint/70 px-2 py-0.5 text-[10px] font-medium text-forest-deep">
+                        <Sparkles size={9} strokeWidth={2} />
+                        {s.tag}
+                      </span>
+                      <span className="text-[9px] uppercase tracking-[0.18em] text-graphite/45">{s.hint}</span>
+                    </div>
+                    <p className="mt-2 text-[13px] leading-snug text-graphite/90">
+                      {active ? (
+                        <>
+                          <span className="typewriter">{s.body}</span>
+                        </>
+                      ) : (
+                        s.body
+                      )}
+                    </p>
+                  </div>
+
+                  {/* step-specific accent */}
+                  {idx === 2 && (
+                    <div className="mt-3 rounded-2xl bg-gradient-to-br from-forest to-forest-deep p-3 text-warm">
+                      <div className="flex items-center justify-between">
+                        <p className="text-[10px] uppercase tracking-[0.2em] text-warm/70">Micro commitment</p>
+                        <Check size={12} className="text-mint" />
+                      </div>
+                      <p className="mt-1 text-[12.5px]">8 min · Open · One paragraph · Close.</p>
+                    </div>
+                  )}
+                  {idx === 3 && (
+                    <div className="mt-3 rounded-2xl border border-forest/10 bg-white/80 p-3">
+                      <p className="text-[10.5px] font-medium text-graphite">Avoidance ↓ 42%</p>
+                      <div className="mt-2 h-1.5 rounded-full bg-graphite/8">
+                        <div className="h-full rounded-full bg-gradient-to-r from-forest to-leaf grow-bar" style={{ width: "58%" }} />
+                      </div>
+                      <div className="mt-2 flex gap-0.5">
+                        {["M","T","W","T","F","S","S"].map((d,i)=>(
+                          <div key={i} className="flex-1 text-center">
+                            <span className="mx-auto block h-4 w-full rounded-sm bg-gradient-to-t from-forest/70 to-leaf/70" style={{opacity: [0.9,0.6,0.9,0.4,0.95,0.3,0.85][i]}} />
+                            <span className="text-[8px] text-graphite/40">{d}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {idx === 1 && (
+                    <div className="mt-3 rounded-2xl border border-forest/10 bg-white/80 p-3">
+                      <div className="flex items-center justify-between">
+                        <p className="text-[10.5px] font-medium text-graphite">Pattern</p>
+                        <span className="text-[9px] text-graphite/50">last 30 days</span>
+                      </div>
+                      <svg viewBox="0 0 240 44" className="mt-1 w-full">
+                        <path d="M0,32 C30,30 45,20 70,24 C95,28 110,12 140,16 C170,20 190,8 240,6"
+                          fill="none" stroke="#2FA37A" strokeWidth="1.6" strokeLinecap="round" className="draw-line"/>
+                        <circle cx="70" cy="24" r="3" fill="#F08A6E" />
+                        <circle cx="140" cy="16" r="3" fill="#F08A6E" />
+                        <circle cx="200" cy="10" r="3" fill="#F08A6E" />
+                      </svg>
+                      <p className="mt-1 text-[10.5px] text-graphite/60">3 avoidance signals · evaluative tasks</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* step dots */}
+          <div className="mt-3 flex justify-center gap-1.5">
+            {HERO_STEPS.map((_, i) => (
+              <span
+                key={i}
+                className="h-1 rounded-full transition-all duration-500"
+                style={{
+                  width: i === step ? 18 : 6,
+                  background: i === step ? "#2FA37A" : "rgba(14,22,20,0.15)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Hero() {
+  return (
+    <section id="top" className="warm-bg relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 grid-faint" />
+      <div className="pointer-events-none absolute inset-0 noise" />
+
+      {/* floating ambient orbs */}
+      <div className="orb-leaf pointer-events-none absolute -left-24 top-40 h-64 w-64 float-slower" />
+      <div className="orb-leaf pointer-events-none absolute -right-16 top-10 h-56 w-56 float-slow" style={{ background: "radial-gradient(closest-side, rgba(127,184,230,0.35), transparent 70%)" }} />
+
+      <div className="relative mx-auto max-w-6xl px-5 pt-10 pb-20 md:px-6 md:pt-16 md:pb-32">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mx-auto inline-flex fade-up">
+            <span className="chip-leaf">
+              <span className="h-1.5 w-1.5 rounded-full bg-forest pulse-dot" />
+              An Emotional Operating System
+            </span>
+          </div>
+
+          <h1 className="mt-6 fade-up text-[44px] font-semibold leading-[1.02] tracking-tight text-graphite sm:text-[64px] md:text-[88px]" style={{ animationDelay: "80ms" }}>
+            You don't need <br className="hidden sm:block" />
+            another <span className="font-editorial text-gradient-forest">chatbot.</span>
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-xl fade-up text-[17px] leading-relaxed text-graphite/70 sm:text-[19px]" style={{ animationDelay: "180ms" }}>
+            Lumid understands what's keeping you stuck — and helps you actually move forward.
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 fade-up sm:flex-row" style={{ animationDelay: "260ms" }}>
+            <a href="#start" className="btn-primary shine w-full justify-center sm:w-auto">
+              Start free · 2 min setup
+              <ArrowRight size={15} strokeWidth={1.9} />
+            </a>
+            <a href="#product" className="btn-ghost w-full justify-center sm:w-auto">
+              See how it works
+            </a>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 fade-up" style={{ animationDelay: "340ms" }}>
+            <TrustPill icon={Lock} label="End-to-end encrypted" />
+            <TrustPill icon={ShieldCheck} label="Private by default" />
+            <TrustPill icon={BookOpen} label="Research informed" />
+          </div>
+        </div>
+
+        <div className="mt-14 fade-up" style={{ animationDelay: "440ms" }}>
+          <PhoneLive />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================ */
+/*  2. Why do I procrastinate?                                   */
+/* ============================================================ */
+
+function WhyStuck() {
+  const items = [
+    { icon: Flame, label: "Avoidance", hint: "The task feels threatening", tone: "coral" },
+    { icon: Waves, label: "Overwhelm", hint: "Too many open loops", tone: "sky" },
+    { icon: Brain, label: "Identity", hint: "\"I'm not that kind of person\"", tone: "amber" },
+  ];
+  return (
+    <section className="section-y warm-bg relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="Why do we get stuck"
+          title="Procrastination isn't"
+          italic="laziness."
+          sub="It's your nervous system asking for a smaller step. Lumid learns which of these patterns is holding you back — and softens it."
+          tone="coral"
+        />
+
+        <div className="mt-14 grid gap-4 sm:grid-cols-3">
+          {items.map((it, i) => (
+            <div
+              key={i}
+              className={`card-premium card-${it.tone === "coral" ? "amber" : it.tone === "sky" ? "sky" : "mint"} p-6 sm:p-7`}
+            >
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/80 text-forest-deep shadow-sm">
+                <it.icon size={18} strokeWidth={1.7} />
               </div>
-              <p className="text-[11px] font-medium text-graphite">Lumid</p>
+              <p className="mt-5 text-[19px] font-semibold text-graphite">{it.label}</p>
+              <p className="mt-1.5 text-[14.5px] text-graphite/65">{it.hint}</p>
             </div>
-            <p className="mt-2 text-[12.5px] leading-snug text-graphite/85">
-              I noticed you postponed the writing block twice this week. Want to sit with what came up — or start with 8 quiet minutes?
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================ */
+/*  3. How Lumid understands you — chat demo                     */
+/* ============================================================ */
+
+function UnderstandDemo() {
+  const messages = [
+    { role: "you", text: "I skipped the gym again. I'm annoyed at myself." },
+    { role: "ai", text: "That's four skips in three weeks — always on Tuesdays after your 4pm meeting." },
+    { role: "ai", text: "It looks less like discipline, more like depletion." },
+  ];
+  const [visible, setVisible] = useState(0);
+  useEffect(() => {
+    if (visible >= messages.length) return;
+    const t = setTimeout(() => setVisible((v) => v + 1), 900);
+    return () => clearTimeout(t);
+  }, [visible]);
+
+  useEffect(() => {
+    const t = setInterval(() => setVisible(0), 8000);
+    return () => clearInterval(t);
+  }, []);
+
+  return (
+    <section id="product" className="section-y relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="How Lumid understands you"
+          title="It doesn't just listen."
+          italic="It remembers."
+          sub="Every conversation becomes context. Patterns emerge that you'd never spot alone."
+        />
+
+        <div className="mt-14 grid gap-8 md:grid-cols-2 md:gap-12">
+          {/* Chat */}
+          <div className="card-premium relative overflow-hidden p-5 sm:p-7">
+            <div className="mb-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm">
+                  <Sparkles size={13} strokeWidth={1.8} />
+                </div>
+                <span className="text-[14px] font-medium text-graphite">Lumid</span>
+              </div>
+              <span className="chip-leaf">Live</span>
+            </div>
+
+            <div className="space-y-3">
+              {messages.slice(0, visible).map((m, i) => (
+                <div
+                  key={i}
+                  className={`fade-up flex ${m.role === "you" ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-[14px] leading-snug ${
+                      m.role === "you"
+                        ? "bg-graphite text-warm"
+                        : "border border-forest/12 bg-white text-graphite"
+                    }`}
+                  >
+                    {m.text}
+                  </div>
+                </div>
+              ))}
+              {visible < messages.length && (
+                <div className="flex justify-start">
+                  <div className="rounded-2xl border border-forest/12 bg-white px-4 py-3">
+                    <span className="inline-flex gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" style={{ animationDelay: "0.2s" }} />
+                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" style={{ animationDelay: "0.4s" }} />
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Insight card */}
+          <div className="flex flex-col justify-center">
+            <Eyebrow tone="amber">Emotional trigger detected</Eyebrow>
+            <h3 className="mt-4 text-[26px] leading-tight sm:text-[32px]">
+              Tuesdays aren't the problem. <span className="font-editorial text-gradient-forest">Your 4pm is.</span>
+            </h3>
+            <p className="mt-4 text-[15.5px] leading-relaxed text-graphite/70">
+              Lumid connects behavior to context — the meetings, sleep, mood, and moments that predict how a day ends. Not to judge. To help you protect your energy.
             </p>
-            <div className="mt-3 flex gap-1.5">
-              <span className="rounded-full bg-mint/70 px-2.5 py-1 text-[10px] text-forest-deep">Sit with it</span>
-              <span className="rounded-full border border-forest/15 bg-warm px-2.5 py-1 text-[10px] text-graphite/70">8 min</span>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <TrustPill icon={Lock} label="Your data stays yours" />
+              <TrustPill icon={Eye} label="You control what's remembered" />
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          {/* mood chart */}
-          <div className="mb-3 rounded-2xl border border-forest/10 bg-white/80 p-3">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-[10.5px] font-medium text-graphite">Mood, this week</p>
-              <p className="text-[10px] text-graphite/50">+ steadier</p>
+/* ============================================================ */
+/*  4. Recovery — timeline animation                             */
+/* ============================================================ */
+
+function RecoveryTimeline() {
+  const days = [
+    { d: "Mon", label: "Notice", copy: "Name the pattern out loud.", done: true },
+    { d: "Tue", label: "Micro action", copy: "8 minutes. That's it.", done: true },
+    { d: "Wed", label: "Reflect", copy: "What felt lighter?", done: true },
+    { d: "Thu", label: "Repeat", copy: "Same window, smaller resistance.", done: true },
+    { d: "Fri", label: "Extend", copy: "Add 4 minutes.", done: false },
+  ];
+  return (
+    <section className="section-y warm-bg relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="Recovery, step by step"
+          title="A plan small enough"
+          italic="to actually finish."
+          sub="Recovery isn't a mountain. It's five soft steps you can take without needing motivation."
+          tone="sky"
+        />
+
+        <div className="mt-14 space-y-3 md:space-y-4">
+          {days.map((day, i) => (
+            <div
+              key={i}
+              className="rise card-premium flex items-start gap-4 p-5 sm:items-center sm:p-6"
+              style={{ animation: `fadeUp .8s cubic-bezier(.2,.7,.2,1) ${i * 120}ms both` }}
+            >
+              <div className="flex flex-col items-center">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-graphite/50">{day.d}</span>
+                <span
+                  className={`mt-1.5 grid h-9 w-9 place-items-center rounded-full text-[11px] font-semibold ${
+                    day.done
+                      ? "bg-gradient-to-br from-forest to-forest-deep text-warm shadow-[0_10px_24px_-10px_rgba(27,94,70,0.6)]"
+                      : "border border-forest/15 bg-white text-graphite/60"
+                  }`}
+                >
+                  {day.done ? <Check size={13} strokeWidth={2.5} /> : i + 1}
+                </span>
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <p className="text-[16px] font-semibold text-graphite sm:text-[17px]">{day.label}</p>
+                <p className="text-[14px] text-graphite/65">{day.copy}</p>
+              </div>
+
+              <div className="hidden w-40 sm:block">
+                <div className="h-1.5 rounded-full bg-graphite/8">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-forest to-leaf grow-bar"
+                    style={{ width: day.done ? "100%" : "35%", animationDelay: `${300 + i * 120}ms` }}
+                  />
+                </div>
+              </div>
             </div>
-            <svg viewBox="0 0 240 60" className="w-full">
-              <defs>
-                <linearGradient id="mchart" x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="#1F3D33" stopOpacity="0.35" />
-                  <stop offset="100%" stopColor="#1F3D33" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-              <path d="M0,42 C30,38 45,28 70,30 C95,32 110,20 140,22 C170,24 190,14 240,10 L240,60 L0,60 Z" fill="url(#mchart)" />
-              <path d="M0,42 C30,38 45,28 70,30 C95,32 110,20 140,22 C170,24 190,14 240,10"
-                fill="none" stroke="#1F3D33" strokeWidth="1.5" strokeLinecap="round"/>
-              <circle cx="140" cy="22" r="2.6" fill="#1F3D33" />
-              <circle cx="140" cy="22" r="5" fill="#1F3D33" fillOpacity="0.15" />
-            </svg>
-            <div className="mt-1 flex justify-between text-[9px] text-graphite/40">
-              {["M","T","W","T","F","S","S"].map((d,i)=>(<span key={i}>{d}</span>))}
-            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a href="#start" className="btn-primary shine">
+            Build my first plan
+            <ArrowRight size={15} strokeWidth={1.9} />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================ */
+/*  5. Memory — swipeable feature cards                          */
+/* ============================================================ */
+
+type FCard = {
+  tag: string;
+  title: string;
+  copy: string;
+  tone: "mint" | "sky" | "amber" | "cream";
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+  visual: React.ReactNode;
+};
+
+const FEATURE_CARDS: FCard[] = [
+  {
+    tag: "Behavior memory",
+    title: "Every mood, remembered.",
+    copy: "Lumid keeps a soft, structured memory of what you've felt, tried, and grown through.",
+    tone: "mint",
+    icon: Brain,
+    visual: (
+      <div className="mt-5 grid grid-cols-7 gap-1.5">
+        {Array.from({ length: 28 }).map((_, i) => {
+          const v = [0.15, 0.35, 0.55, 0.8, 1][i % 5];
+          return <span key={i} className="aspect-square rounded-md" style={{ background: `rgba(47,163,122,${v * 0.55})` }} />;
+        })}
+      </div>
+    ),
+  },
+  {
+    tag: "Reflection",
+    title: "Ask better questions.",
+    copy: "Prompts tuned to what you just felt — not what a generic journal thinks you should ask.",
+    tone: "sky",
+    icon: MessageCircle,
+    visual: (
+      <div className="mt-5 space-y-2">
+        {["What made today lighter?", "Where did you soften?", "What would you tell Monday-you?"].map((q, i) => (
+          <div key={i} className="rounded-xl border border-forest/10 bg-white/80 px-3 py-2 text-[13px] text-graphite/80">
+            {q}
           </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    tag: "Daily plan",
+    title: "One small next step.",
+    copy: "The plan is never the mountain. It's the size you'd actually attempt on a hard day.",
+    tone: "amber",
+    icon: Calendar,
+    visual: (
+      <div className="mt-5 rounded-2xl border border-white/70 bg-white/80 p-4">
+        <p className="text-[11px] uppercase tracking-[0.18em] text-graphite/45">Today · 8 min</p>
+        <p className="mt-1 text-[15px] font-semibold text-graphite">Open the doc. Read one line.</p>
+        <div className="mt-3 flex gap-1.5">
+          <span className="rounded-full bg-forest px-2.5 py-1 text-[10px] font-medium text-warm">Start</span>
+          <span className="rounded-full border border-forest/15 bg-white px-2.5 py-1 text-[10px] text-graphite/70">Snooze 1h</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    tag: "Identity progress",
+    title: "Watch yourself change.",
+    copy: "Not streaks. Shifts. Lumid shows you the version of you that's slowly emerging.",
+    tone: "cream",
+    icon: Activity,
+    visual: (
+      <div className="mt-5 rounded-2xl border border-white/70 bg-white/80 p-4">
+        <svg viewBox="0 0 220 60" className="w-full">
+          <defs>
+            <linearGradient id="idg" x1="0" x2="1">
+              <stop offset="0%" stopColor="#F4B860" />
+              <stop offset="100%" stopColor="#2FA37A" />
+            </linearGradient>
+          </defs>
+          <path d="M0,50 C40,48 60,40 90,32 C120,24 150,18 220,8"
+            fill="none" stroke="url(#idg)" strokeWidth="2" strokeLinecap="round" className="draw-line" />
+        </svg>
+        <p className="mt-2 text-[12px] text-graphite/60">"Someone who follows through, quietly." <span className="text-forest">+34%</span></p>
+      </div>
+    ),
+  },
+];
 
-          {/* micro commitment */}
-          <div className="rounded-2xl border border-forest/10 bg-gradient-to-br from-forest to-forest-deep p-3 text-warm shadow-[0_10px_30px_-14px_rgba(16,32,27,0.55)]">
+function FeatureRail() {
+  const ref = useRef<HTMLDivElement>(null);
+  return (
+    <section className="section-y relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="What lives inside Lumid"
+          title="An operating system"
+          italic="for your inner life."
+          tone="amber"
+        />
+
+        {/* Mobile: horizontal snap rail */}
+        <div
+          ref={ref}
+          className="mt-12 -mx-5 flex snap-rail gap-4 overflow-x-auto px-5 pb-4 md:hidden"
+        >
+          {FEATURE_CARDS.map((c, i) => (
+            <FeatureCard key={i} card={c} />
+          ))}
+          <div className="w-2 shrink-0" />
+        </div>
+
+        {/* Desktop: grid */}
+        <div className="mt-12 hidden gap-5 md:grid md:grid-cols-2">
+          {FEATURE_CARDS.map((c, i) => (
+            <FeatureCard key={i} card={c} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeatureCard({ card }: { card: FCard }) {
+  const Icon = card.icon;
+  return (
+    <div className={`snap-card card-premium card-${card.tone} rise relative overflow-hidden p-6 sm:p-8 md:snap-start md:flex-none md:w-auto`}>
+      <div className="flex items-center justify-between">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/85 text-forest-deep shadow-sm">
+          <Icon size={18} strokeWidth={1.75} />
+        </div>
+        <span className="chip-leaf">{card.tag}</span>
+      </div>
+      <h3 className="mt-6 text-[24px] leading-tight tracking-tight sm:text-[28px]">{card.title}</h3>
+      <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/65">{card.copy}</p>
+      {card.visual}
+    </div>
+  );
+}
+
+/* ============================================================ */
+/*  6. What makes Lumid different                                */
+/* ============================================================ */
+
+function Compare() {
+  const rows = [
+    ["Remembers your growth", true, false],
+    ["Detects emotional patterns", true, false],
+    ["Builds recovery plans", true, false],
+    ["Follows up between sessions", true, false],
+    ["Private by design", true, "sometimes"],
+  ] as const;
+
+  return (
+    <section className="section-y warm-bg relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="Why Lumid isn't ChatGPT"
+          title="One remembers your prompts."
+          italic="One remembers you."
+          tone="coral"
+        />
+
+        <div className="mx-auto mt-14 max-w-2xl overflow-hidden rounded-3xl border border-forest/12 bg-white/85 shadow-[0_30px_80px_-40px_rgba(27,94,70,0.25)] backdrop-blur">
+          <div className="grid grid-cols-[1.4fr_1fr_1fr] items-center gap-2 border-b border-forest/10 bg-gradient-to-r from-mint/60 to-white px-5 py-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-graphite/70">
+            <span></span>
+            <span className="text-center text-forest-deep">Lumid</span>
+            <span className="text-center text-graphite/50">Chatbots</span>
+          </div>
+          {rows.map(([label, a, b], i) => (
+            <div key={i} className="grid grid-cols-[1.4fr_1fr_1fr] items-center gap-2 border-b border-forest/8 px-5 py-4 text-[14.5px] last:border-b-0">
+              <span className="text-graphite/85">{label}</span>
+              <span className="flex justify-center">
+                {a ? <Check size={16} strokeWidth={2.4} className="text-forest" /> : <span className="text-graphite/30">—</span>}
+              </span>
+              <span className="flex justify-center text-graphite/45">
+                {b === true ? <Check size={16} /> : b === "sometimes" ? "sometimes" : "—"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================ */
+/*  7. Clinic dashboard — story                                  */
+/* ============================================================ */
+
+function ClinicStory() {
+  const steps = [
+    { icon: Fingerprint, tag: "1 · Consent", title: "Patient chooses to share.", copy: "Nothing is shared without an explicit, revocable opt-in." },
+    { icon: Brain, tag: "2 · Summary", title: "Lumid summarizes behavior.", copy: "Trends, not transcripts. Signals, not raw messages." },
+    { icon: Users, tag: "3 · Clinician view", title: "Better care between sessions.", copy: "Your psychologist sees what changed, and what needs attention." },
+  ];
+  return (
+    <section id="clinic" className="section-y relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="For clinicians"
+          title="Extend care"
+          italic="between sessions."
+          sub="A private bridge between a patient's week and their psychologist — built entirely on consent."
+          tone="sky"
+        />
+
+        <div className="mt-14 grid gap-5 md:grid-cols-3">
+          {steps.map((s, i) => (
+            <div key={i} className="card-premium relative overflow-hidden p-6 sm:p-7">
+              <div className="flex items-center gap-3">
+                <div className="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-forest/12 to-mint/70 text-forest-deep">
+                  <s.icon size={16} strokeWidth={1.8} />
+                </div>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-graphite/55">{s.tag}</span>
+              </div>
+              <h3 className="mt-5 text-[20px] font-semibold text-graphite">{s.title}</h3>
+              <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/65">{s.copy}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Dashboard mockup */}
+        <div className="mt-12 overflow-hidden rounded-[28px] border border-graphite/12 bg-[#0F1614] p-2 shadow-[0_60px_130px_-40px_rgba(16,32,27,0.5)]">
+          <div className="rounded-[22px] bg-[#111C19] p-5 sm:p-8">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-[0.18em] text-warm/70">Micro commitment</p>
-              <Check size={12} strokeWidth={2} className="text-mint" />
+              <div className="flex items-center gap-2">
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+              </div>
+              <span className="text-[11px] uppercase tracking-[0.18em] text-warm/40">clinic.lumid.app</span>
+              <span className="chip-leaf">consented</span>
             </div>
-            <p className="mt-1.5 text-[13px] leading-snug">Open the doc. Read one sentence. Close it if that's enough.</p>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              <div className="rounded-2xl bg-white/[.04] p-5 md:col-span-2">
+                <p className="text-[11px] uppercase tracking-[0.18em] text-warm/45">Behavioral trend · Ada</p>
+                <p className="mt-1 text-[16px] font-semibold text-warm">Avoidance ↓ 42% this month</p>
+                <svg viewBox="0 0 500 120" className="mt-4 w-full">
+                  <defs>
+                    <linearGradient id="dg" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="0%" stopColor="#62C48A" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#62C48A" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0,90 C60,80 100,60 160,55 C220,50 260,70 320,50 C380,30 430,20 500,15 L500,120 L0,120 Z" fill="url(#dg)" />
+                  <path d="M0,90 C60,80 100,60 160,55 C220,50 260,70 320,50 C380,30 430,20 500,15"
+                    fill="none" stroke="#62C48A" strokeWidth="2" strokeLinecap="round" className="draw-line" />
+                </svg>
+              </div>
+              <div className="space-y-3">
+                {[
+                  { l: "Mood variance", v: "steady" },
+                  { l: "Sleep", v: "7h 06m avg" },
+                  { l: "Micro actions", v: "18 / 21" },
+                ].map((k, i) => (
+                  <div key={i} className="rounded-2xl bg-white/[.04] p-4">
+                    <p className="text-[11px] uppercase tracking-[0.18em] text-warm/40">{k.l}</p>
+                    <p className="mt-1 text-[15px] font-semibold text-warm">{k.v}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2 rounded-2xl border border-warm/10 bg-white/[.03] p-4 text-[12.5px] text-warm/70">
+              <ShieldCheck size={14} className="text-leaf" />
+              Only summarized signals are shared. Raw conversations remain private to the patient.
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Floating hero ecosystem cards                                      */
-/* ------------------------------------------------------------------ */
+/* ============================================================ */
+/*  8. Privacy                                                   */
+/* ============================================================ */
 
-function EcoCard({
-  children,
-  className = "",
-  rotate = 0,
-  style,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  rotate?: number;
-  style?: React.CSSProperties;
-}) {
+function Privacy() {
+  const items = [
+    { icon: Lock, title: "End-to-end encrypted", copy: "Your conversations are encrypted before they leave your device." },
+    { icon: Eye, title: "You control memory", copy: "Forget any moment. Export everything. Nothing hidden." },
+    { icon: ShieldCheck, title: "Consent controlled", copy: "Nothing is shared with a clinician without your explicit opt-in." },
+    { icon: BookOpen, title: "Research informed", copy: "Built on established behavioral science, not vibes." },
+  ];
   return (
-    <div
-      className={`card-premium absolute p-4 ${className}`}
-      style={{ transform: `rotate(${rotate}deg)`, ...style }}
-    >
-      {children}
-    </div>
+    <section id="privacy" className="section-y warm-bg relative">
+      <div className="mx-auto max-w-6xl container-x">
+        <SectionHeader
+          eyebrow="Privacy, by design"
+          title="Trust isn't a section."
+          italic="It's the product."
+          tone="forest"
+        />
+
+        <div className="mt-14 grid gap-4 sm:grid-cols-2">
+          {items.map((it, i) => (
+            <div key={i} className="rise card-premium flex items-start gap-4 p-6 sm:p-7">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-forest/12 to-mint/70 text-forest-deep">
+                <it.icon size={16} strokeWidth={1.8} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[17px] font-semibold text-graphite">{it.title}</p>
+                <p className="mt-1 text-[14.5px] leading-relaxed text-graphite/65">{it.copy}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
-function HeroEcosystem() {
+/* ============================================================ */
+/*  9. CTA + Footer                                              */
+/* ============================================================ */
+
+function CTA() {
   return (
-    <div className="relative mx-auto mt-10 w-full max-w-[1180px] md:mt-14 md:h-[720px]">
-      {/* Connecting curves — desktop only */}
-      <svg
-        className="absolute inset-0 hidden h-full w-full md:block"
-        viewBox="0 0 1180 720"
-        fill="none"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <linearGradient id="ln" x1="0" x2="1" y1="0" y2="0">
-            <stop offset="0" stopColor="#14382C" stopOpacity="0" />
-            <stop offset="0.5" stopColor="#14382C" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#14382C" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path className="draw-line" d="M180,180 C 340,120 460,260 590,320" stroke="url(#ln)" strokeWidth="1.2" />
-        <path className="draw-line" d="M220,520 C 360,560 470,470 590,410" stroke="url(#ln)" strokeWidth="1.2" />
-        <path className="draw-line" d="M990,160 C 860,120 760,260 640,320" stroke="url(#ln)" strokeWidth="1.2" />
-        <path className="draw-line" d="M980,540 C 860,560 760,470 640,410" stroke="url(#ln)" strokeWidth="1.2" />
-      </svg>
+    <section id="start" className="relative px-5 pb-16 md:px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="gradient-ring">
+          <div className="relative overflow-hidden rounded-[27px] bg-[#0E1B16] p-8 sm:p-14 md:p-20">
+            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(111,181,140,0.35),transparent_70%)] blur-2xl" />
+            <div className="pointer-events-none absolute -bottom-20 -left-16 h-64 w-64 rounded-full bg-[radial-gradient(closest-side,rgba(244,184,96,0.28),transparent_70%)] blur-2xl" />
 
-      {/* Phone center — inline on mobile, absolute on desktop */}
-      <div className="relative flex justify-center md:absolute md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2">
-        <div className="float-slower">
-          <PhoneMockup />
-        </div>
-      </div>
-
-      {/* Mobile: satellite cards in a clean 2-col grid */}
-      <div className="mt-10 grid grid-cols-2 gap-3 px-1 md:hidden">
-        <div className="card-premium p-4">
-          <div className="flex items-center gap-2">
-            <Clock size={13} strokeWidth={1.6} className="text-forest" />
-            <p className="text-[11px] font-medium text-graphite">Timeline</p>
-          </div>
-          <div className="mt-3 space-y-1.5">
-            {[
-              { d: "Mon", t: "Noticed", tone: "bg-sage/50" },
-              { d: "Wed", t: "Named it", tone: "bg-mint" },
-              { d: "Fri", t: "10 min", tone: "bg-forest text-warm" },
-            ].map((r) => (
-              <div key={r.d} className="flex items-center gap-2 text-[11px]">
-                <span className="w-6 text-graphite/50">{r.d}</span>
-                <span className={`rounded-full px-2 py-0.5 ${r.tone}`}>{r.t}</span>
+            <div className="relative mx-auto max-w-2xl text-center">
+              <Eyebrow tone="amber">
+                <span className="text-warm/70">Ready when you are</span>
+              </Eyebrow>
+              <h2 className="mt-5 text-[32px] leading-[1.05] tracking-tight text-warm sm:text-[44px] md:text-[60px]">
+                Meet the version of you that <span className="font-editorial text-mint">follows through.</span>
+              </h2>
+              <p className="mx-auto mt-5 max-w-lg text-[16px] leading-relaxed text-warm/70 sm:text-[17px]">
+                Two minutes to set up. Five minutes a day. A quieter mind by next week.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a href="#" className="btn-primary shine w-full justify-center sm:w-auto">
+                  Try Lumid free
+                  <ArrowRight size={15} strokeWidth={1.9} />
+                </a>
+                <a href="#clinic" className="btn-ghost w-full justify-center bg-white/10 text-warm hover:bg-white/15 sm:w-auto" style={{ borderColor: "rgba(255,255,255,0.15)" }}>
+                  For clinicians
+                </a>
               </div>
-            ))}
-          </div>
-        </div>
-        <div className="card-premium p-4">
-          <div className="flex items-center gap-2">
-            <MessageCircle size={13} strokeWidth={1.6} className="text-forest" />
-            <p className="text-[11px] font-medium text-graphite">Reflection</p>
-          </div>
-          <p className="mt-2 text-[12px] leading-snug text-graphite/85">
-            "I opened it. Read one line. Enough."
-          </p>
-        </div>
-        <div className="card-premium p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-medium text-graphite">Pattern</p>
-            <BrainCircuit size={13} strokeWidth={1.6} className="text-forest" />
-          </div>
-          <svg viewBox="0 0 200 60" className="mt-2 w-full">
-            {[10, 22, 16, 30, 24, 40, 34, 46].map((h, i) => (
-              <rect key={i} x={i * 24 + 4} y={60 - h} width="12" height={h} rx="3" fill={i === 5 ? "#14382C" : "#C7E7C7"} />
-            ))}
-          </svg>
-          <p className="mt-1 text-[10px] text-graphite/55">Avoidance ↓ 34%</p>
-        </div>
-        <div className="card-premium p-4">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-medium text-graphite">Identity</p>
-            <HeartPulse size={13} strokeWidth={1.6} className="text-forest" />
-          </div>
-          <div className="mt-3 space-y-2">
-            {[
-              { l: "Begins", v: 74 },
-              { l: "Returns", v: 58 },
-            ].map((r) => (
-              <div key={r.l}>
-                <div className="mb-1 flex justify-between text-[10px] text-graphite/70">
-                  <span>{r.l}</span><span>{r.v}%</span>
-                </div>
-                <div className="h-1 w-full overflow-hidden rounded-full bg-forest/10">
-                  <div className="h-full rounded-full bg-forest" style={{ width: `${r.v}%` }} />
-                </div>
-              </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Desktop-only floating cards */}
-      <div className="hidden md:block">
-        <EcoCard className="left-0 top-[70px] w-[260px] float-slow" rotate={-3}>
-          <div className="flex items-center gap-2">
-            <Clock size={14} strokeWidth={1.6} className="text-forest" />
-            <p className="text-[11px] font-medium text-graphite">Recovery Timeline</p>
-          </div>
-          <div className="mt-3 space-y-2">
-            {[
-              { d: "Mon", t: "Noticed avoidance", tone: "bg-sage/50" },
-              { d: "Wed", t: "Named the fear", tone: "bg-mint" },
-              { d: "Fri", t: "First 10 minutes", tone: "bg-forest text-warm" },
-            ].map((r) => (
-              <div key={r.d} className="flex items-center gap-2 text-[11.5px]">
-                <span className="w-8 text-graphite/50">{r.d}</span>
-                <span className={`rounded-full px-2.5 py-1 ${r.tone}`}>{r.t}</span>
-              </div>
-            ))}
-          </div>
-        </EcoCard>
-
-        <EcoCard className="left-[40px] top-[410px] w-[230px] float-slower" rotate={2}>
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-medium text-graphite">Behavior Pattern</p>
-            <BrainCircuit size={13} strokeWidth={1.6} className="text-forest" />
-          </div>
-          <svg viewBox="0 0 200 60" className="mt-2 w-full">
-            {[10, 22, 16, 30, 24, 40, 34, 46].map((h, i) => (
-              <rect key={i} x={i * 24 + 4} y={60 - h} width="12" height={h} rx="3" fill={i === 5 ? "#14382C" : "#C7E7C7"} />
-            ))}
-          </svg>
-          <p className="mt-1 text-[10.5px] text-graphite/55">Avoidance ↓ 34% since last cycle</p>
-        </EcoCard>
-
-        <EcoCard className="right-0 top-[60px] w-[260px] float-slower" rotate={3}>
-          <div className="flex items-center gap-2">
-            <MessageCircle size={14} strokeWidth={1.6} className="text-forest" />
-            <p className="text-[11px] font-medium text-graphite">Daily Reflection</p>
-          </div>
-          <p className="mt-2 text-[12.5px] leading-snug text-graphite/85">
-            "Today I chose to open the document. I read one line. It was enough."
-          </p>
-          <p className="mt-2 text-[10.5px] text-graphite/50">— saved to your private memory</p>
-        </EcoCard>
-
-        <EcoCard className="right-[40px] top-[420px] w-[240px] float-slow" rotate={-2}>
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-medium text-graphite">Identity Progress</p>
-            <HeartPulse size={13} strokeWidth={1.6} className="text-forest" />
-          </div>
-          <div className="mt-3 space-y-2">
-            {[
-              { l: "The kind who begins", v: 74 },
-              { l: "The kind who returns", v: 58 },
-            ].map((r) => (
-              <div key={r.l}>
-                <div className="mb-1 flex justify-between text-[10.5px] text-graphite/70">
-                  <span>{r.l}</span><span>{r.v}%</span>
-                </div>
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-forest/10">
-                  <div className="h-full rounded-full bg-forest" style={{ width: `${r.v}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </EcoCard>
-
-        <div className="card-premium float-slow absolute left-[45%] top-[10px] flex items-center gap-2 px-3 py-1.5">
-          <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-forest" />
-          <span className="text-[11px] text-graphite/80">Listening quietly</span>
-        </div>
-        <div className="card-premium float-slower absolute right-[36%] bottom-[10px] flex items-center gap-2 px-3 py-1.5">
-          <Lock size={11} strokeWidth={1.7} className="text-forest" />
-          <span className="text-[11px] text-graphite/80">End-to-end encrypted</span>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 
-/* ------------------------------------------------------------------ */
-/*  Page                                                                */
-/* ------------------------------------------------------------------ */
+function Footer() {
+  return (
+    <footer className="border-t border-forest/8 bg-white/60 px-5 py-10 backdrop-blur md:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <div className="flex items-center gap-2.5">
+          <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm">
+            <Leaf size={14} strokeWidth={1.8} />
+          </div>
+          <div>
+            <p className="text-[15px] font-semibold text-graphite">Lumid</p>
+            <p className="text-[12px] text-graphite/55">An Emotional Operating System</p>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-graphite/65">
+          <a href="#product" className="hover:text-graphite">Product</a>
+          <a href="#clinic" className="hover:text-graphite">Clinicians</a>
+          <a href="#privacy" className="hover:text-graphite">Privacy</a>
+          <a href="#" className="hover:text-graphite">Contact</a>
+        </div>
+        <p className="text-[12px] text-graphite/50">© {new Date().getFullYear()} Lumid</p>
+      </div>
+    </footer>
+  );
+}
+
+/* ============================================================ */
+/*  Page                                                         */
+/* ============================================================ */
 
 function Home() {
   return (
-    <main className="relative page-bg overflow-hidden">
-      {/* ambient background layers */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 grid-faint opacity-70" />
-        <div className="absolute inset-0 noise" />
-        <div className="absolute -top-40 left-1/3 h-[520px] w-[520px] rounded-full bg-mint/40 blur-[110px]" />
-        <div className="absolute top-1/2 -right-40 h-[600px] w-[600px] rounded-full bg-sage/40 blur-[120px]" />
-      </div>
-
+    <main className="min-h-screen text-graphite">
       <Nav />
-
-      {/* HERO */}
-      <section className="relative">
-        <div className="mx-auto max-w-6xl px-5 pt-16 text-center md:px-6 md:pt-28">
-          <Eyebrow>A companion for emotional recovery</Eyebrow>
-          <h1 className="mx-auto mt-5 max-w-4xl text-[42px] leading-[1.05] tracking-[-0.03em] text-graphite font-extralight sm:text-[56px] md:mt-6 md:text-[92px] md:leading-[1.02]">
-            Emotional intelligence,
-            <br />
-            <span className="font-editorial text-gradient-forest">quietly at work.</span>
-          </h1>
-          <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-graphite/70 md:mt-7 md:text-[18px]">
-            Lumid listens the way a thoughtful friend would — remembering, patterning, and gently returning you to the things that matter.
-          </p>
-          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-9">
-            <a href="#start" className="btn-primary shine group w-full justify-center sm:w-auto">
-              Begin quietly
-              <span className="grid h-7 w-7 place-items-center rounded-full bg-warm text-forest transition-transform group-hover:translate-x-0.5">
-                <ArrowUpRight size={13} strokeWidth={2} />
-              </span>
-            </a>
-            <a href="#demo" className="btn-ghost w-full justify-center sm:w-auto">
-              <Play size={12} strokeWidth={2} className="fill-graphite" />
-              Watch the film · 68s
-            </a>
-          </div>
-        </div>
-
-        <HeroEcosystem />
-      </section>
-
-
-      {/* Trust strip */}
-      <section className="relative mt-20 pb-20 md:-mt-4 md:pb-28">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mx-auto flex max-w-3xl items-center justify-center gap-4 text-center seed-divider">
-            <div className="seed-divider-line" />
-            <span className="seed-dot" />
-            <p className="text-[12px] tracking-[0.22em] text-graphite/55 uppercase">Trusted in quiet corners of care</p>
-            <span className="seed-dot" />
-            <div className="seed-divider-line" />
-          </div>
-
-          <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-6 opacity-70 md:grid-cols-6 md:gap-x-6">
-            {["Ottia Health", "Northwell Mind", "Kestrel Clinic", "Ivy Psychology", "Bloomlab", "Solace Co."].map((n) => (
-              <div key={n} className="flex items-center justify-center gap-2 text-graphite/55">
-                <span className="h-1.5 w-1.5 rounded-full bg-forest/40" />
-                <span className="text-[15px] tracking-tight">{n}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* STORY / JOURNEY */}
-      <section id="story" className="relative py-24 md:py-40">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="max-w-3xl">
-            <Eyebrow>The journey Lumid holds</Eyebrow>
-            <h2 className="mt-6 text-[34px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[46px] md:text-[64px] md:leading-[1.05]">
-              From the first uncertain feeling
-              <br />
-              <span className="font-editorial text-gradient-sun">to the person you are becoming.</span>
-            </h2>
-            <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-graphite/70">
-              Not a chatbot. A patient thread that keeps context, notices patterns, and returns
-              your own words to you at the moments they help most.
-            </p>
-          </div>
-
-          {/* Journey rail */}
-          <div className="mt-16 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {[
-              { i: <Waves size={16} strokeWidth={1.4} />, t: "Emotion", d: "Something arrives — a heaviness, a stall.", tone: "card-sky", ic: "bg-sky/25 text-graphite" },
-              { i: <MessageCircle size={16} strokeWidth={1.4} />, t: "Conversation", d: "You put it into words, at your own pace.", tone: "card-mint", ic: "bg-forest/10 text-forest" },
-              { i: <Compass size={16} strokeWidth={1.4} />, t: "Understanding", d: "Lumid names the pattern beneath the moment.", tone: "card-amber", ic: "bg-amber/30 text-graphite" },
-              { i: <LineChart size={16} strokeWidth={1.4} />, t: "Growth", d: "Small returns become who you are.", tone: "card-cream", ic: "bg-forest/12 text-forest-deep" },
-            ].map((s, idx) => (
-              <div key={s.t} className={`card-premium ${s.tone} relative p-6`}>
-                <div className="flex items-center justify-between">
-                  <div className={`grid h-9 w-9 place-items-center rounded-full ${s.ic}`}>{s.i}</div>
-                  <span className="text-[11px] text-graphite/40">0{idx + 1}</span>
-                </div>
-                <p className="mt-6 text-[22px] font-light tracking-tight text-graphite">{s.t}</p>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/70">{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCT FEATURES — each a small preview */}
-      <section id="product" className="relative py-20 md:py-36">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div className="max-w-2xl">
-              <Eyebrow>Product</Eyebrow>
-              <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
-                A quiet operating system for the inner life.
-              </h2>
-            </div>
-            <a href="#tour" className="btn-ghost">Take the tour <ArrowUpRight size={14} /></a>
-          </div>
-
-          <div className="mt-16 grid grid-cols-12 gap-5">
-            {/* Timeline preview */}
-            <div className="card-premium col-span-12 overflow-hidden p-6 md:p-8 md:col-span-7">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="eyebrow">Timeline</p>
-                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">A memory of how you moved.</h3>
-                  <p className="mt-2 max-w-md text-[15px] leading-relaxed text-graphite/65">
-                    Every reflection stitched into a soft chronology only you can read.
-                  </p>
-                </div>
-                <Clock size={18} strokeWidth={1.4} className="text-forest/70" />
-              </div>
-
-              <div className="relative mt-8">
-                <div className="absolute left-[10px] top-2 bottom-2 w-px bg-forest/15" />
-                {[
-                  { d: "Mar 12", t: "Named avoidance around writing.", tag: "insight" },
-                  { d: "Mar 15", t: "Opened the doc, read one line.", tag: "commitment" },
-                  { d: "Mar 21", t: "Wrote for eleven quiet minutes.", tag: "return" },
-                  { d: "Apr 02", t: "Noticed the fear was smaller.", tag: "shift" },
-                ].map((r) => (
-                  <div key={r.d} className="relative flex items-start gap-4 py-3 pl-7">
-                    <span className="absolute left-[6px] top-4 h-2 w-2 rounded-full bg-forest ring-4 ring-warm" />
-                    <div className="flex-1">
-                      <div className="flex items-baseline gap-3">
-                        <p className="text-[13px] font-medium text-graphite">{r.d}</p>
-                        <span className="text-[10.5px] uppercase tracking-[0.18em] text-graphite/45">{r.tag}</span>
-                      </div>
-                      <p className="text-[15px] leading-snug text-graphite/80">{r.t}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Pattern recognition */}
-            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-5">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="eyebrow">Pattern recognition</p>
-                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">The shape underneath the moment.</h3>
-                </div>
-                <BrainCircuit size={18} strokeWidth={1.4} className="text-forest/70" />
-              </div>
-              <div className="mt-6 rounded-2xl border border-forest/10 bg-warm/70 p-5">
-                <svg viewBox="0 0 360 160" className="w-full">
-                  <defs>
-                    <linearGradient id="g2" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0" stopColor="#1F3D33" stopOpacity="0.35" />
-                      <stop offset="1" stopColor="#1F3D33" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M0,120 C60,110 90,60 150,70 C210,80 240,30 300,40 L360,25 L360,160 L0,160 Z" fill="url(#g2)" />
-                  <path d="M0,120 C60,110 90,60 150,70 C210,80 240,30 300,40 L360,25"
-                    stroke="#1F3D33" strokeWidth="1.6" fill="none" strokeLinecap="round"/>
-                  {[[60,105],[150,70],[240,52],[300,40]].map(([x,y],i)=>(
-                    <g key={i}><circle cx={x} cy={y} r="3.2" fill="#1F3D33" /><circle cx={x} cy={y} r="7" fill="#1F3D33" fillOpacity="0.12" /></g>
-                  ))}
-                </svg>
-                <p className="mt-3 text-[13px] text-graphite/65">Avoidance cycles are softening, weekly, with each small return.</p>
-              </div>
-            </div>
-
-            {/* Memory */}
-            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-5">
-              <p className="eyebrow">Memory</p>
-              <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">Your words, kept safe.</h3>
-              <div className="mt-6 grid grid-cols-2 gap-3">
-                {[
-                  "The thing I keep circling is worth naming.",
-                  "I don't need to feel ready to begin.",
-                  "Rest is not the opposite of return.",
-                  "My smallness is not a verdict.",
-                ].map((q) => (
-                  <div key={q} className="rise rounded-xl border border-forest/10 bg-gradient-to-br from-white to-mint/40 p-3 text-[13px] leading-snug text-graphite/80">
-                    "{q}"
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Recovery Plan */}
-            <div className="card-premium col-span-12 p-6 md:p-8 md:col-span-7">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="eyebrow">Recovery plan</p>
-                  <h3 className="mt-3 text-[22px] md:text-[28px] font-light tracking-tight text-graphite">Small returns, gently scheduled.</h3>
-                </div>
-                <Sparkles size={18} strokeWidth={1.4} className="text-forest/70" />
-              </div>
-              <div className="mt-6 space-y-3">
-                {[
-                  { t: "Open the document", s: "2 min · morning light", p: 100 },
-                  { t: "Read one sentence aloud", s: "1 min · after coffee", p: 76 },
-                  { t: "Write for eleven minutes", s: "before the day pulls", p: 42 },
-                  { t: "Close with a single line", s: "reflection · saved to memory", p: 12 },
-                ].map((r) => (
-                  <div key={r.t} className="rise flex items-center gap-4 rounded-xl border border-forest/10 bg-gradient-to-r from-white to-mint/30 px-4 py-3">
-                    <div className="grid h-8 w-8 place-items-center rounded-full bg-forest/8 text-forest">
-                      <Check size={14} strokeWidth={2} />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-[15px] text-graphite">{r.t}</p>
-                      <p className="text-[12.5px] text-graphite/55">{r.s}</p>
-                    </div>
-                    <div className="h-1.5 w-28 overflow-hidden rounded-full bg-forest/10">
-                      <div className="h-full rounded-full bg-forest" style={{ width: `${r.p}%` }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PROCRASTINATION TIMELINE */}
-      <section className="relative py-24 md:py-40">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="max-w-2xl">
-            <Eyebrow>The difference</Eyebrow>
-            <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
-              Not a productivity app.
-              <br />
-              <span className="font-editorial text-gradient-forest">A companion for emotional avoidance.</span>
-            </h2>
-            <p className="mt-6 text-[18px] leading-relaxed text-graphite/70">
-              Procrastination isn't laziness — it's a story about safety. Lumid follows the whole arc.
-            </p>
-          </div>
-
-          <div className="card-premium mt-10 md:mt-14 overflow-hidden p-6 md:p-10">
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-7">
-              {[
-                { t: "Task", d: "A block appears.", i: <Compass size={14} /> },
-                { t: "Avoidance", d: "The mind drifts.", i: <Waves size={14} /> },
-                { t: "Stress", d: "Weight in the chest.", i: <HeartPulse size={14} /> },
-                { t: "Lumid detects", d: "The pattern surfaces.", i: <BrainCircuit size={14} /> },
-                { t: "Recovery Plan", d: "Softly proposed.", i: <Sparkles size={14} /> },
-                { t: "Action", d: "One small return.", i: <Check size={14} /> },
-                { t: "Progress", d: "Identity, quietly shifting.", i: <LineChart size={14} /> },
-              ].map((s, i, arr) => (
-                <div key={s.t} className="relative">
-                  <div className="grid h-10 w-10 place-items-center rounded-full bg-forest text-warm shadow-[0_10px_20px_-10px_rgba(16,32,27,0.6)]">
-                    {s.i}
-                  </div>
-                  <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-graphite/45">Step {i + 1}</p>
-                  <p className="mt-1 text-[18px] font-light text-graphite">{s.t}</p>
-                  <p className="mt-1 text-[13.5px] leading-snug text-graphite/60">{s.d}</p>
-                  {i < arr.length - 1 && (
-                    <div className="absolute -right-4 top-4 hidden h-px w-8 bg-gradient-to-r from-forest/40 to-transparent md:block" />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CLINIC DASHBOARD */}
-      <section id="clinic" className="relative py-24 md:py-40">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="max-w-3xl">
-            <Eyebrow>For clinicians</Eyebrow>
-            <h2 className="mt-6 text-[52px] leading-[1.05] font-light tracking-[-0.025em] text-graphite md:text-[64px]">
-              Extend care beyond every session.
-            </h2>
-            <p className="mt-6 max-w-2xl text-[18px] leading-relaxed text-graphite/70">
-              Patients keep full ownership of their conversations. Psychologists receive structured behavioral insights
-              only with explicit consent. Raw conversations are never exposed.
-            </p>
-          </div>
-
-          {/* Floating browser mockup */}
-          <div className="relative mt-16">
-            <div className="pointer-events-none absolute -inset-10 -z-10 rounded-[40px] bg-[radial-gradient(closest-side,rgba(31,61,51,0.30),transparent_70%)] blur-3xl" />
-
-            <div className="overflow-hidden rounded-[28px] border border-graphite/10 bg-graphite text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.55)]">
-              {/* window chrome */}
-              <div className="flex items-center gap-2 border-b border-white/8 px-5 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-warm/25" />
-                <span className="h-2.5 w-2.5 rounded-full bg-warm/25" />
-                <span className="h-2.5 w-2.5 rounded-full bg-warm/25" />
-                <div className="ml-4 flex items-center gap-2 rounded-md bg-white/6 px-3 py-1 text-[11px] text-warm/60">
-                  <Lock size={11} strokeWidth={1.6} /> clinic.lumid.app/patients/ada
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 gap-6 p-5 md:grid-cols-12 md:p-8">
-                {/* side nav — horizontal on mobile, vertical on desktop */}
-                <div className="flex gap-1.5 overflow-x-auto md:col-span-3 md:flex-col md:space-y-1.5 md:overflow-visible">
-                  {["Overview","Patients","Insights","Consent Log","Sessions","Settings"].map((n, i) => (
-                    <div key={n} className={`shrink-0 rounded-lg px-3 py-2 text-[12.5px] whitespace-nowrap ${i===2 ? "bg-white/10 text-warm" : "text-warm/50"}`}>{n}</div>
-                  ))}
-                </div>
-
-                {/* main */}
-                <div className="space-y-4 md:col-span-9">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[11px] uppercase tracking-[0.2em] text-warm/50">Patient · Consented insight</p>
-                      <p className="mt-1 text-[17px] md:text-[22px] font-light">Ada M. — Behavioral summary, past 14 days</p>
-                    </div>
-                    <span className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-warm/70">
-                      Consent renewed · Apr 10
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                    {[
-                      { l: "Avoidance episodes", v: "↓ 34%", s: "vs. previous cycle" },
-                      { l: "Micro-commitments kept", v: "18 / 21", s: "quiet consistency" },
-                      { l: "Sleep window", v: "7h 04m", s: "±22m variance" },
-                    ].map((k) => (
-                      <div key={k.l} className="rounded-xl border border-white/10 bg-white/5 p-4">
-                        <p className="text-[11px] uppercase tracking-[0.2em] text-warm/50">{k.l}</p>
-                        <p className="mt-2 text-[26px] font-light">{k.v}</p>
-                        <p className="text-[11.5px] text-warm/50">{k.s}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-3">
-
-                      <p className="text-[11.5px] uppercase tracking-[0.2em] text-warm/50">Behavioral trend</p>
-                      <svg viewBox="0 0 360 120" className="mt-3 w-full">
-                        <defs>
-                          <linearGradient id="dg" x1="0" x2="0" y1="0" y2="1">
-                            <stop offset="0" stopColor="#C7E7C7" stopOpacity="0.5" />
-                            <stop offset="1" stopColor="#C7E7C7" stopOpacity="0" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M0,100 C60,90 90,60 150,55 C210,50 240,30 300,25 L360,15 L360,120 L0,120 Z" fill="url(#dg)" />
-                        <path d="M0,100 C60,90 90,60 150,55 C210,50 240,30 300,25 L360,15"
-                          stroke="#C7E7C7" strokeWidth="1.6" fill="none"/>
-                      </svg>
-                    </div>
-                    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-2">
-                      <p className="text-[11.5px] uppercase tracking-[0.2em] text-warm/50">Themes surfaced</p>
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {["avoidance", "self-worth", "return", "quiet consistency", "identity"].map((t)=>(
-                          <span key={t} className="rounded-full border border-white/12 px-2.5 py-1 text-[11px] text-warm/75">{t}</span>
-                        ))}
-                      </div>
-                      <p className="mt-4 text-[12px] leading-snug text-warm/55">
-                        Raw conversations remain with the patient. You receive only structured, consented signals.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRIVACY */}
-      <section id="privacy" className="relative py-24 md:py-40">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <Eyebrow>Privacy is the product</Eyebrow>
-          <h2 className="mx-auto mt-6 max-w-3xl text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
-            Your inner life belongs to you.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-[18px] leading-relaxed text-graphite/70">
-            Conversations are encrypted, ownership never transfers, and any clinician insight requires an explicit,
-            reversible consent — one moment at a time.
-          </p>
-
-          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-3">
-            {[
-              { i: <Lock size={16} strokeWidth={1.5} />, t: "End-to-end encrypted", d: "Only you hold the key to your words." },
-              { i: <ShieldCheck size={16} strokeWidth={1.5} />, t: "Granular consent", d: "Share a signal, not a sentence." },
-              { i: <Leaf size={16} strokeWidth={1.5} />, t: "Sovereign memory", d: "Export or erase — anytime, everything." },
-            ].map((c) => (
-              <div key={c.t} className="card-premium p-6 text-left">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-forest/8 text-forest">{c.i}</div>
-                <p className="mt-5 text-[18px] font-light text-graphite">{c.t}</p>
-                <p className="mt-1.5 text-[14px] leading-relaxed text-graphite/60">{c.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section id="start" className="relative py-20 md:py-36">
-        <div className="mx-auto max-w-5xl px-5 md:px-6">
-          <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-forest/15 bg-gradient-to-br from-forest to-forest-deep p-7 md:p-14 text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.6)]">
-            <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-mint/25 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl" />
-
-            <div className="relative flex flex-col gap-8 md:flex-row md:flex-wrap md:items-end md:justify-between">
-              <div className="max-w-xl">
-                <p className="eyebrow text-warm/60">Begin, quietly</p>
-                <h3 className="mt-5 text-[30px] leading-[1.08] font-light tracking-tight sm:text-[38px] md:text-[56px] md:leading-[1.05]">
-                  A companion that returns you to yourself.
-                </h3>
-                <p className="mt-4 text-[16px] leading-relaxed text-warm/70">
-                  Free for the first thirty days. No noise. No streaks. Just the thread.
-                </p>
-              </div>
-              <div className="flex flex-col items-start gap-3 md:items-end">
-                <a href="#download" className="btn-primary shine bg-warm text-forest-deep hover:btn-primary-hover" style={{ background: "linear-gradient(180deg, #ffffff 0%, #EDECE4 100%)", color: "#10201B" }}>
-                  Download Lumid
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-forest text-warm">
-                    <ArrowUpRight size={13} strokeWidth={2} />
-                  </span>
-                </a>
-                <p className="text-[12px] text-warm/50">iOS · Android · macOS</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="relative border-t border-graphite/10 pt-16 pb-10">
-        <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="flex flex-col gap-10 md:flex-row md:flex-wrap md:items-start md:justify-between">
-            <div className="max-w-md">
-              <div className="flex items-center gap-2.5">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-forest text-warm">
-                  <Leaf size={15} strokeWidth={1.6} />
-                </div>
-                <span className="text-[19px] font-medium tracking-tight text-graphite">Lumid</span>
-              </div>
-              <p className="mt-5 text-[15px] leading-relaxed text-graphite/60">
-                Built with care in small rooms. For the quiet work of becoming.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-8 text-[14px] sm:grid-cols-3 sm:gap-14">
-              {[
-                { h: "Product", l: ["Timeline","Memory","Recovery Plan","Clinic"] },
-                { h: "Company", l: ["Story","Manifesto","Careers","Press"] },
-                { h: "Trust", l: ["Privacy","Security","Consent Log","Contact"] },
-              ].map((c) => (
-                <div key={c.h}>
-                  <p className="mb-4 eyebrow">{c.h}</p>
-                  <ul className="space-y-2 text-graphite/65">
-                    {c.l.map((x) => <li key={x}><a href="#" className="hover:text-graphite">{x}</a></li>)}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-graphite/10 pt-6">
-            <p className="text-[12.5px] text-graphite/50">© 2026 Lumid, PBC — Made with quiet intent.</p>
-            <div className="flex items-center gap-2 text-[12.5px] text-graphite/55">
-              <ShieldCheck size={13} strokeWidth={1.6} /> SOC 2 · HIPAA-ready · GDPR
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Hero />
+      <WhyStuck />
+      <UnderstandDemo />
+      <RecoveryTimeline />
+      <FeatureRail />
+      <Compare />
+      <ClinicStory />
+      <Privacy />
+      <CTA />
+      <Footer />
     </main>
   );
 }
