@@ -768,7 +768,7 @@ function Home() {
             <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-mint/25 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-sage/20 blur-3xl" />
 
-            <div className="relative flex flex-wrap items-end justify-between gap-8">
+            <div className="relative flex flex-col gap-8 md:flex-row md:flex-wrap md:items-end md:justify-between">
               <div className="max-w-xl">
                 <p className="eyebrow text-warm/60">Begin, quietly</p>
                 <h3 className="mt-5 text-[30px] leading-[1.08] font-light tracking-tight sm:text-[38px] md:text-[56px] md:leading-[1.05]">
