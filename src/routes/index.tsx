@@ -448,35 +448,29 @@ function UnderstandDemo() {
               <span className="chip-leaf">Live</span>
             </div>
 
-            <div className="space-y-3">
-              {messages.slice(0, visible).map((m, i) => (
-                <div
-                  key={i}
-                  className={`fade-up flex ${m.role === "you" ? "justify-end" : "justify-start"}`}
-                >
+            <div className="space-y-3 min-h-[280px]">
+              {messages.map((m, i) => {
+                const shown = i < visible;
+                return (
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-3 text-[14px] leading-snug ${
-                      m.role === "you"
-                        ? "bg-graphite text-warm"
-                        : "border border-forest/12 bg-white text-graphite"
-                    }`}
+                    key={i}
+                    className={`flex ${m.role === "you" ? "justify-end" : "justify-start"} transition-opacity duration-500`}
+                    style={{ opacity: shown ? 1 : 0 }}
                   >
-                    {m.text}
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-[14px] leading-snug ${
+                        m.role === "you"
+                          ? "bg-graphite text-warm"
+                          : "border border-forest/12 bg-white text-graphite"
+                      }`}
+                    >
+                      {m.text}
+                    </div>
                   </div>
-                </div>
-              ))}
-              {visible < messages.length && (
-                <div className="flex justify-start">
-                  <div className="rounded-2xl border border-forest/12 bg-white px-4 py-3">
-                    <span className="inline-flex gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" />
-                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" style={{ animationDelay: "0.2s" }} />
-                      <span className="h-1.5 w-1.5 rounded-full bg-forest/60 breathe" style={{ animationDelay: "0.4s" }} />
-                    </span>
-                  </div>
-                </div>
-              )}
+                );
+              })}
             </div>
+
           </div>
 
           {/* Insight card */}
