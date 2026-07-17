@@ -32,10 +32,16 @@
   --color-warm: var(--warm);
   --color-graphite: var(--graphite);
   --color-leaf: var(--leaf);
+  --color-lime: var(--lime);
+  --color-amber: var(--amber);
+  --color-sky: var(--sky);
+  --color-coral: var(--coral);
+  --color-cream: var(--cream);
 
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", "ITC Garamond", "EB Garamond", Georgia, ui-serif, serif;
 }
 
 :root {
@@ -57,12 +63,17 @@
   --accent: #CDE9CE;
   --accent-foreground: #0E1614;
 
-  /* Lumid palette — lighter, brighter greens */
-  --forest: #3E8B6E;           /* secondary/brand green (Lumid) — lighter */
-  --forest-deep: #1F4A3A;      /* deep contrast for buttons only */
-  --sage: #A9CDB0;
-  --mint: #DCF1DA;
-  --leaf: #6FB58C;
+  /* Lumid palette — brighter, professional */
+  --forest: #2FA37A;           /* brighter Lumid green */
+  --forest-deep: #1B5E46;      /* deep contrast for buttons */
+  --sage: #A9DDB8;
+  --mint: #DFF6E1;
+  --leaf: #62C48A;
+  --lime: #B7EF8A;             /* zesty accent */
+  --amber: #F4B860;            /* warm highlight */
+  --sky: #7FB8E6;              /* cool accent */
+  --coral: #F08A6E;            /* editorial pop */
+  --cream: #FBF7EE;
 
   --border: rgba(14, 22, 20, 0.07);
 
@@ -86,14 +97,15 @@
   }
 }
 
-/* Ambient page background: pure white with the softest hint of mint/sage in corners */
+/* Ambient page background: bright with playful hints of mint, amber, and sky */
 @utility page-bg {
   position: relative;
   background:
-    radial-gradient(900px 500px at 12% -5%, rgba(159, 184, 154, 0.14), transparent 60%),
-    radial-gradient(800px 500px at 92% 8%, rgba(199, 231, 199, 0.18), transparent 65%),
-    radial-gradient(1100px 700px at 50% 105%, rgba(20, 56, 44, 0.05), transparent 60%),
-    #FFFFFF;
+    radial-gradient(900px 500px at 8% -5%, rgba(127, 184, 230, 0.18), transparent 60%),
+    radial-gradient(800px 500px at 92% 6%, rgba(183, 239, 138, 0.28), transparent 65%),
+    radial-gradient(700px 500px at 100% 60%, rgba(244, 184, 96, 0.16), transparent 60%),
+    radial-gradient(1100px 700px at 50% 108%, rgba(47, 163, 122, 0.10), transparent 60%),
+    linear-gradient(180deg, #FFFFFF 0%, #FBFEF9 100%);
 }
 @utility grid-faint {
   background-image:
@@ -109,17 +121,106 @@
   pointer-events: none;
 }
 
-/* Premium card material */
+/* Premium card — soft gradient, refined shadow, micro hover lift */
 @utility card-premium {
+  position: relative;
   background:
-    linear-gradient(180deg, #FFFFFF, #FAFDF9);
-  border: 1px solid rgba(14, 22, 20, 0.06);
+    linear-gradient(160deg, #FFFFFF 0%, #F5FCF3 55%, #EAF7EE 100%);
+  border: 1px solid rgba(47, 163, 122, 0.10);
   box-shadow:
     0 1px 0 rgba(255,255,255,0.9) inset,
     0 1px 2px rgba(14, 22, 20, 0.02),
-    0 24px 50px -28px rgba(31, 74, 58, 0.16);
+    0 24px 50px -28px rgba(27, 94, 70, 0.18);
   backdrop-filter: blur(10px);
   border-radius: 28px;
+  transition: transform 380ms cubic-bezier(.2,.7,.2,1), box-shadow 380ms ease, border-color 380ms ease;
+  will-change: transform;
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(47, 163, 122, 0.22);
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.9) inset,
+      0 2px 6px rgba(14, 22, 20, 0.04),
+      0 40px 80px -30px rgba(27, 94, 70, 0.28);
+  }
+}
+
+/* Variant tinted cards — bright but professional */
+@utility card-mint {
+  background: linear-gradient(155deg, #F3FBEE 0%, #DFF3E3 60%, #C9EBD3 100%);
+  border: 1px solid rgba(47, 163, 122, 0.18);
+}
+@utility card-sky {
+  background: linear-gradient(155deg, #F1F8FE 0%, #E1EFFB 60%, #CFE3F6 100%);
+  border: 1px solid rgba(127, 184, 230, 0.28);
+}
+@utility card-amber {
+  background: linear-gradient(155deg, #FFF7EA 0%, #FEEBCB 60%, #FAD8A2 100%);
+  border: 1px solid rgba(244, 184, 96, 0.32);
+}
+@utility card-cream {
+  background: linear-gradient(160deg, #FDFAF1 0%, #F7EFDD 100%);
+  border: 1px solid rgba(196, 168, 108, 0.20);
+}
+
+/* Elegant italic serif — for accent phrases (Fraunces / ITC Garamond-like) */
+@utility font-editorial {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+/* Gradient text using brand greens */
+@utility text-gradient-forest {
+  background: linear-gradient(120deg, #1B5E46 0%, #2FA37A 45%, #62C48A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility text-gradient-sun {
+  background: linear-gradient(120deg, #1B5E46 0%, #2FA37A 40%, #B7EF8A 80%, #F4B860 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Animated gradient border shell */
+@utility gradient-ring {
+  position: relative;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(47,163,122,0.5), rgba(127,184,230,0.35) 45%, rgba(244,184,96,0.45) 80%, rgba(47,163,122,0.5));
+  background-size: 220% 220%;
+  animation: ringShift 9s ease-in-out infinite;
+}
+@keyframes ringShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Shine sweep on hover — for hero cards / buttons */
+@utility shine {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+    pointer-events: none;
+  }
+  &:hover::after { transform: translateX(120%); }
+}
+
+/* Soft rise on hover for interactive rows */
+@utility rise {
+  transition: transform 260ms ease, box-shadow 260ms ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -18px rgba(27, 94, 70, 0.28);
+  }
 }
 
 @utility btn-primary {

@@ -384,13 +384,13 @@ function Home() {
           <h1 className="mx-auto mt-5 max-w-4xl text-[42px] leading-[1.05] tracking-[-0.03em] text-graphite font-extralight sm:text-[56px] md:mt-6 md:text-[92px] md:leading-[1.02]">
             Emotional intelligence,
             <br />
-            <span className="italic text-forest font-light">quietly at work.</span>
+            <span className="font-editorial text-gradient-forest">quietly at work.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-[15.5px] leading-relaxed text-graphite/70 md:mt-7 md:text-[18px]">
             Lumid listens the way a thoughtful friend would — remembering, patterning, and gently returning you to the things that matter.
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row md:mt-9">
-            <a href="#start" className="btn-primary group w-full justify-center sm:w-auto">
+            <a href="#start" className="btn-primary shine group w-full justify-center sm:w-auto">
               Begin quietly
               <span className="grid h-7 w-7 place-items-center rounded-full bg-warm text-forest transition-transform group-hover:translate-x-0.5">
                 <ArrowUpRight size={13} strokeWidth={2} />
@@ -437,7 +437,7 @@ function Home() {
             <h2 className="mt-6 text-[34px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[46px] md:text-[64px] md:leading-[1.05]">
               From the first uncertain feeling
               <br />
-              <span className="text-forest italic font-extralight">to the person you are becoming.</span>
+              <span className="font-editorial text-gradient-sun">to the person you are becoming.</span>
             </h2>
             <p className="mt-6 max-w-xl text-[18px] leading-relaxed text-graphite/70">
               Not a chatbot. A patient thread that keeps context, notices patterns, and returns
@@ -448,18 +448,18 @@ function Home() {
           {/* Journey rail */}
           <div className="mt-16 grid grid-cols-2 gap-3 md:grid-cols-4">
             {[
-              { i: <Waves size={16} strokeWidth={1.4} />, t: "Emotion", d: "Something arrives — a heaviness, a stall." },
-              { i: <MessageCircle size={16} strokeWidth={1.4} />, t: "Conversation", d: "You put it into words, at your own pace." },
-              { i: <Compass size={16} strokeWidth={1.4} />, t: "Understanding", d: "Lumid names the pattern beneath the moment." },
-              { i: <LineChart size={16} strokeWidth={1.4} />, t: "Growth", d: "Small returns become who you are." },
+              { i: <Waves size={16} strokeWidth={1.4} />, t: "Emotion", d: "Something arrives — a heaviness, a stall.", tone: "card-sky", ic: "bg-sky/25 text-graphite" },
+              { i: <MessageCircle size={16} strokeWidth={1.4} />, t: "Conversation", d: "You put it into words, at your own pace.", tone: "card-mint", ic: "bg-forest/10 text-forest" },
+              { i: <Compass size={16} strokeWidth={1.4} />, t: "Understanding", d: "Lumid names the pattern beneath the moment.", tone: "card-amber", ic: "bg-amber/30 text-graphite" },
+              { i: <LineChart size={16} strokeWidth={1.4} />, t: "Growth", d: "Small returns become who you are.", tone: "card-cream", ic: "bg-forest/12 text-forest-deep" },
             ].map((s, idx) => (
-              <div key={s.t} className="card-premium relative p-6">
+              <div key={s.t} className={`card-premium ${s.tone} relative p-6`}>
                 <div className="flex items-center justify-between">
-                  <div className="grid h-9 w-9 place-items-center rounded-full bg-forest/8 text-forest">{s.i}</div>
+                  <div className={`grid h-9 w-9 place-items-center rounded-full ${s.ic}`}>{s.i}</div>
                   <span className="text-[11px] text-graphite/40">0{idx + 1}</span>
                 </div>
                 <p className="mt-6 text-[22px] font-light tracking-tight text-graphite">{s.t}</p>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/65">{s.d}</p>
+                <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/70">{s.d}</p>
               </div>
             ))}
           </div>
@@ -554,7 +554,7 @@ function Home() {
                   "Rest is not the opposite of return.",
                   "My smallness is not a verdict.",
                 ].map((q) => (
-                  <div key={q} className="rounded-xl border border-forest/10 bg-warm/70 p-3 text-[13px] leading-snug text-graphite/80">
+                  <div key={q} className="rise rounded-xl border border-forest/10 bg-gradient-to-br from-white to-mint/40 p-3 text-[13px] leading-snug text-graphite/80">
                     "{q}"
                   </div>
                 ))}
@@ -577,7 +577,7 @@ function Home() {
                   { t: "Write for eleven minutes", s: "before the day pulls", p: 42 },
                   { t: "Close with a single line", s: "reflection · saved to memory", p: 12 },
                 ].map((r) => (
-                  <div key={r.t} className="flex items-center gap-4 rounded-xl border border-forest/8 bg-warm/70 px-4 py-3">
+                  <div key={r.t} className="rise flex items-center gap-4 rounded-xl border border-forest/10 bg-gradient-to-r from-white to-mint/30 px-4 py-3">
                     <div className="grid h-8 w-8 place-items-center rounded-full bg-forest/8 text-forest">
                       <Check size={14} strokeWidth={2} />
                     </div>
@@ -604,7 +604,7 @@ function Home() {
             <h2 className="mt-6 text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
               Not a productivity app.
               <br />
-              <span className="italic text-forest font-extralight">A companion for emotional avoidance.</span>
+              <span className="font-editorial text-gradient-forest">A companion for emotional avoidance.</span>
             </h2>
             <p className="mt-6 text-[18px] leading-relaxed text-graphite/70">
               Procrastination isn't laziness — it's a story about safety. Lumid follows the whole arc.
@@ -783,7 +783,7 @@ function Home() {
                 </p>
               </div>
               <div className="flex flex-col items-start gap-3 md:items-end">
-                <a href="#download" className="btn-primary bg-warm text-forest-deep hover:btn-primary-hover" style={{ background: "linear-gradient(180deg, #ffffff 0%, #EDECE4 100%)", color: "#10201B" }}>
+                <a href="#download" className="btn-primary shine bg-warm text-forest-deep hover:btn-primary-hover" style={{ background: "linear-gradient(180deg, #ffffff 0%, #EDECE4 100%)", color: "#10201B" }}>
                   Download Lumid
                   <span className="grid h-7 w-7 place-items-center rounded-full bg-forest text-warm">
                     <ArrowUpRight size={13} strokeWidth={2} />
