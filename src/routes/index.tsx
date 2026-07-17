@@ -412,23 +412,107 @@ function WhyStuck() {
 /*  3. How Lumid understands you — chat demo                     */
 /* ============================================================ */
 
-function UnderstandDemo() {
-  const messages = [
-    { role: "you", text: "I skipped the gym again. I'm annoyed at myself." },
-    { role: "ai", text: "That's four skips in three weeks — always on Tuesdays after your 4pm meeting." },
-    { role: "ai", text: "It looks less like discipline, more like depletion." },
-  ];
-  const [visible, setVisible] = useState(0);
-  useEffect(() => {
-    if (visible >= messages.length) return;
-    const t = setTimeout(() => setVisible((v) => v + 1), 900);
-    return () => clearTimeout(t);
-  }, [visible]);
+type ChatMsg = { role: "you" | "ai"; text: string };
+type Conversation = { tag: string; insightEyebrow: string; insightTitle: React.ReactNode; insightBody: string; messages: ChatMsg[] };
 
+const CONVERSATIONS: Conversation[] = [
+  {
+    tag: "Burnout pattern",
+    insightEyebrow: "Emotional trigger detected",
+    insightTitle: (<>Tuesdays aren't the problem. <span className="font-editorial text-gradient-forest">Your 4pm is.</span></>),
+    insightBody: "Lumid connects behavior to context — the meetings, sleep, mood, and moments that predict how a day ends. Not to judge. To help you protect your energy.",
+    messages: [
+      { role: "you", text: "I skipped the gym again. I'm annoyed at myself." },
+      { role: "ai", text: "That's four skips in three weeks — always on Tuesdays after your 4pm meeting." },
+      { role: "ai", text: "It looks less like discipline, more like depletion." },
+    ],
+  },
+  {
+    tag: "Late-night scroll",
+    insightEyebrow: "Avoidance loop noticed",
+    insightTitle: (<>Your phone isn't the enemy. <span className="font-editorial text-gradient-forest">The unopened email is.</span></>),
+    insightBody: "Lumid notices what you reach for when something feels heavy — and gently names it, so the loop loses its grip.",
+    messages: [
+      { role: "you", text: "It's 1am and I'm scrolling again. I don't even know why." },
+      { role: "ai", text: "You've opened the app 3 nights this week — each time after your inbox hit 40 unreads." },
+      { role: "you", text: "Yeah… I've been avoiding one email." },
+      { role: "ai", text: "Let's not fix the scrolling tonight. Let's just name the email tomorrow at 10." },
+    ],
+  },
+  {
+    tag: "Motivation dip",
+    insightEyebrow: "Identity signal",
+    insightTitle: (<>You didn't lose motivation. <span className="font-editorial text-gradient-forest">You lost recovery.</span></>),
+    insightBody: "Lumid remembers your last three good weeks — what fueled them, and what quietly stopped.",
+    messages: [
+      { role: "you", text: "I used to love mornings. Now I dread them." },
+      { role: "ai", text: "In your best weeks last month, you slept by 11 and journaled before coffee." },
+      { role: "ai", text: "Both faded 9 days ago — right after your project deadline moved up." },
+      { role: "you", text: "I didn't even notice." },
+    ],
+  },
+  {
+    tag: "Anxious spiral",
+    insightEyebrow: "Context restored",
+    insightTitle: (<>It isn't out of nowhere. <span className="font-editorial text-gradient-forest">It's Sunday, again.</span></>),
+    insightBody: "Lumid holds the thread across days, so a hard moment doesn't feel random — it feels understood.",
+    messages: [
+      { role: "you", text: "My chest is tight and I can't tell why." },
+      { role: "ai", text: "This is the third Sunday evening in a row you've felt this." },
+      { role: "ai", text: "Last time, it eased after a 10-min walk and texting your sister. Want to try one of those?" },
+      { role: "you", text: "The walk. Let's start there." },
+    ],
+  },
+];
+
+function UnderstandDemo() {
+  const [convoIdx, setConvoIdx] = useState(0);
+  const convo = CONVERSATIONS[convoIdx];
+  const [visible, setVisible] = useState(0); // fully-shown message count
+  const [typing, setTyping] = useState<{ i: number; text: string } | null>(null);
+
+  // Drive the message sequence with per-character typing for AI messages
   useEffect(() => {
-    const t = setInterval(() => setVisible(0), 8000);
-    return () => clearInterval(t);
-  }, []);
+    let cancelled = false;
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+    setVisible(0);
+    setTyping(null);
+
+    const run = async () => {
+      for (let i = 0; i < convo.messages.length; i++) {
+        if (cancelled) return;
+        const m = convo.messages[i];
+        await new Promise<void>((r) => timeouts.push(setTimeout(r, i === 0 ? 500 : 700)));
+        if (cancelled) return;
+        if (m.role === "you") {
+          setVisible(i + 1);
+        } else {
+          // typing dots pause
+          setTyping({ i, text: "" });
+          await new Promise<void>((r) => timeouts.push(setTimeout(r, 900)));
+          if (cancelled) return;
+          // type out characters
+          for (let c = 1; c <= m.text.length; c++) {
+            if (cancelled) return;
+            setTyping({ i, text: m.text.slice(0, c) });
+            await new Promise<void>((r) => timeouts.push(setTimeout(r, 18 + Math.random() * 22)));
+          }
+          setTyping(null);
+          setVisible(i + 1);
+        }
+      }
+      // hold, then advance to next conversation
+      await new Promise<void>((r) => timeouts.push(setTimeout(r, 3200)));
+      if (cancelled) return;
+      setConvoIdx((v) => (v + 1) % CONVERSATIONS.length);
+    };
+    run();
+
+    return () => {
+      cancelled = true;
+      timeouts.forEach(clearTimeout);
+    };
+  }, [convoIdx]);
 
   return (
     <section id="product" className="section-y relative">
@@ -440,7 +524,7 @@ function UnderstandDemo() {
           sub="Every conversation becomes context. Patterns emerge that you'd never spot alone."
         />
 
-        <div className="mt-14 grid gap-8 md:grid-cols-2 md:gap-12">
+        <div className="mt-14 grid gap-8 md:grid-cols-2 md:gap-12 items-start">
           {/* Chat */}
           <div className="card-premium relative overflow-hidden p-5 sm:p-7">
             <div className="mb-4 flex items-center justify-between">
@@ -450,17 +534,19 @@ function UnderstandDemo() {
                 </div>
                 <span className="text-[14px] font-medium text-graphite">Lumid</span>
               </div>
-              <span className="chip-leaf">Live</span>
+              <span className="chip-leaf">{convo.tag}</span>
             </div>
 
-            <div className="space-y-3 min-h-[280px]">
-              {messages.map((m, i) => {
+            <div className="space-y-3 h-[340px] sm:h-[300px] overflow-hidden">
+              {convo.messages.map((m, i) => {
                 const shown = i < visible;
+                const isTyping = typing?.i === i;
+                if (!shown && !isTyping) return null;
+                const text = isTyping ? typing!.text : m.text;
                 return (
                   <div
-                    key={i}
-                    className={`flex ${m.role === "you" ? "justify-end" : "justify-start"} transition-opacity duration-500`}
-                    style={{ opacity: shown ? 1 : 0 }}
+                    key={`${convoIdx}-${i}`}
+                    className={`flex ${m.role === "you" ? "justify-end" : "justify-start"} animate-fade-in`}
                   >
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 text-[14px] leading-snug ${
@@ -469,23 +555,45 @@ function UnderstandDemo() {
                           : "border border-forest/12 bg-white text-graphite"
                       }`}
                     >
-                      {m.text}
+                      {isTyping && text.length === 0 ? (
+                        <span className="inline-flex gap-1 py-1" aria-label="Lumid is typing">
+                          <span className="h-1.5 w-1.5 rounded-full bg-forest/50 animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <span className="h-1.5 w-1.5 rounded-full bg-forest/50 animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <span className="h-1.5 w-1.5 rounded-full bg-forest/50 animate-bounce" style={{ animationDelay: "300ms" }} />
+                        </span>
+                      ) : (
+                        <>
+                          {text}
+                          {isTyping && <span className="inline-block w-[2px] h-[14px] align-middle bg-forest/60 ml-0.5 animate-pulse" />}
+                        </>
+                      )}
                     </div>
                   </div>
                 );
               })}
             </div>
 
+            {/* Progress dots */}
+            <div className="mt-4 flex items-center justify-center gap-1.5">
+              {CONVERSATIONS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setConvoIdx(i)}
+                  aria-label={`Show conversation ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${i === convoIdx ? "w-6 bg-forest" : "w-1.5 bg-forest/25 hover:bg-forest/45"}`}
+                />
+              ))}
+            </div>
           </div>
 
           {/* Insight card */}
-          <div className="flex flex-col justify-center">
-            <Eyebrow tone="amber">Emotional trigger detected</Eyebrow>
+          <div key={convoIdx} className="flex flex-col justify-center animate-fade-in">
+            <Eyebrow tone="amber">{convo.insightEyebrow}</Eyebrow>
             <h3 className="mt-4 text-[26px] leading-tight sm:text-[32px]">
-              Tuesdays aren't the problem. <span className="font-editorial text-gradient-forest">Your 4pm is.</span>
+              {convo.insightTitle}
             </h3>
             <p className="mt-4 text-[15.5px] leading-relaxed text-graphite/70">
-              Lumid connects behavior to context — the meetings, sleep, mood, and moments that predict how a day ends. Not to judge. To help you protect your energy.
+              {convo.insightBody}
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
               <TrustPill icon={Lock} label="Your data stays yours" />
@@ -497,6 +605,8 @@ function UnderstandDemo() {
     </section>
   );
 }
+
+
 
 /* ============================================================ */
 /*  4. Recovery — timeline animation                             */
