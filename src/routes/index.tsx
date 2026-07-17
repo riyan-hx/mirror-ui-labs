@@ -778,7 +778,7 @@ function Home() {
                   Free for the first thirty days. No noise. No streaks. Just the thread.
                 </p>
               </div>
-              <div className="flex flex-col items-end gap-3">
+              <div className="flex flex-col items-start gap-3 md:items-end">
                 <a href="#download" className="btn-primary bg-warm text-forest-deep hover:btn-primary-hover" style={{ background: "linear-gradient(180deg, #ffffff 0%, #EDECE4 100%)", color: "#10201B" }}>
                   Download Lumid
                   <span className="grid h-7 w-7 place-items-center rounded-full bg-forest text-warm">
