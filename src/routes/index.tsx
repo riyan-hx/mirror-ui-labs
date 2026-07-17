@@ -951,13 +951,28 @@ function ContactSection() {
         <div className="mt-14 grid gap-6 md:grid-cols-12">
           {/* Contact form card */}
           <div className="card-premium md:col-span-7 p-6 sm:p-8">
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="space-y-5"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const name = (form.elements.namedItem("contact-name") as HTMLInputElement)?.value.trim();
+                const email = (form.elements.namedItem("contact-email") as HTMLInputElement)?.value.trim();
+                const role = (form.elements.namedItem("contact-role") as HTMLSelectElement)?.value;
+                const message = (form.elements.namedItem("contact-message") as HTMLTextAreaElement)?.value.trim();
+                const subject = `New Lumid inquiry from ${name || "website visitor"}`;
+                const body = `Name: ${name}\nEmail: ${email}\nRole: ${role}\n\nMessage:\n${message}`;
+                window.location.href = `mailto:info@lumid.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+              }}
+            >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="contact-name" className="text-[13px] font-semibold text-graphite/80">Name</label>
                   <input
                     id="contact-name"
+                    name="contact-name"
                     type="text"
+                    required
                     placeholder="Ada Lovelace"
                     className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
                   />
@@ -966,7 +981,9 @@ function ContactSection() {
                   <label htmlFor="contact-email" className="text-[13px] font-semibold text-graphite/80">Email</label>
                   <input
                     id="contact-email"
+                    name="contact-email"
                     type="email"
+                    required
                     placeholder="ada@clinic.org"
                     className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
                   />
@@ -976,6 +993,7 @@ function ContactSection() {
                 <label htmlFor="contact-role" className="text-[13px] font-semibold text-graphite/80">I am a</label>
                 <select
                   id="contact-role"
+                  name="contact-role"
                   className="w-full rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
                 >
                   <option>Individual seeking support</option>
@@ -989,7 +1007,9 @@ function ContactSection() {
                 <label htmlFor="contact-message" className="text-[13px] font-semibold text-graphite/80">Message</label>
                 <textarea
                   id="contact-message"
+                  name="contact-message"
                   rows={5}
+                  required
                   placeholder="Tell us what you're working on..."
                   className="w-full resize-none rounded-2xl border border-forest/12 bg-white/80 px-4 py-3.5 text-[15px] text-graphite placeholder:text-graphite/35 focus:border-forest/40 focus:outline-none focus:ring-2 focus:ring-forest/10"
                 />
