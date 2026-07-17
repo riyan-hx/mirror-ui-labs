@@ -345,7 +345,7 @@ function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-3 fade-up sm:flex-row" style={{ animationDelay: "260ms" }}>
-            <a href="#start" className="btn-primary shine w-full justify-center sm:w-auto">
+            <a href="https://chat.lumidai.in" target="_blank" rel="noopener noreferrer" className="btn-primary shine w-full justify-center sm:w-auto">
               Start free · 2 min setup
               <ArrowRight size={15} strokeWidth={1.9} />
             </a>
