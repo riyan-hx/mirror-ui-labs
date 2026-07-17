@@ -32,10 +32,16 @@
   --color-warm: var(--warm);
   --color-graphite: var(--graphite);
   --color-leaf: var(--leaf);
+  --color-lime: var(--lime);
+  --color-amber: var(--amber);
+  --color-sky: var(--sky);
+  --color-coral: var(--coral);
+  --color-cream: var(--cream);
 
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", "ITC Garamond", "EB Garamond", Georgia, ui-serif, serif;
 }
 
 :root {
