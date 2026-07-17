@@ -319,6 +319,92 @@
   pointer-events: none;
 }
 
+/* ---- Mobile-first storytelling utilities ---- */
+
+@utility fade-up {
+  animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+}
+@utility fade-in-soft {
+  animation: fadeInSoft 1.1s ease-out both;
+}
+@keyframes fadeInSoft {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Typing caret */
+@utility caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  vertical-align: -2px;
+  background: currentColor;
+  margin-left: 2px;
+  animation: caretBlink 1s steps(2) infinite;
+}
+@keyframes caretBlink {
+  50% { opacity: 0; }
+}
+
+/* Typewriter width */
+@utility typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 0;
+  animation: typing 2.8s steps(38, end) 0.4s both;
+}
+@keyframes typing {
+  from { max-width: 0; }
+  to   { max-width: 100%; }
+}
+
+/* Grow bar */
+@utility grow-bar {
+  transform-origin: left center;
+  animation: growBar 1.4s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes growBar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* Soft breathing glow */
+@utility breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1);   opacity: 0.9; }
+  50%     { transform: scale(1.05); opacity: 1;  }
+}
+
+/* Snap scroll rail for horizontal cards on mobile */
+@utility snap-rail {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+@utility snap-card {
+  scroll-snap-align: center;
+  flex: 0 0 86%;
+}
+
+/* Warm layered ambient background */
+@utility warm-bg {
+  position: relative;
+  background:
+    radial-gradient(1200px 700px at 50% -10%, rgba(183, 239, 138, 0.22), transparent 60%),
+    radial-gradient(900px 600px at 100% 20%, rgba(127, 184, 230, 0.14), transparent 65%),
+    radial-gradient(900px 600px at 0% 60%, rgba(244, 184, 96, 0.14), transparent 65%),
+    radial-gradient(1200px 800px at 50% 110%, rgba(47, 163, 122, 0.14), transparent 60%),
+    linear-gradient(180deg, #FBFAF5 0%, #FDFCF7 100%);
+}
+
 /* A hairline divider with a centered seed dot */
 @utility seed-divider {
   display: flex;
