@@ -163,8 +163,8 @@
   border: 1px solid rgba(196, 168, 108, 0.20);
 }
 
-/* Elegant italic serif — for accent phrases */
-@utility font-serif {
+/* Elegant italic serif — for accent phrases (Fraunces / ITC Garamond-like) */
+@utility font-editorial {
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 300;
