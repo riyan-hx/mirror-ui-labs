@@ -915,10 +915,7 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div className="flex items-center gap-2.5">
           <img src={logoAsset.url} alt="Lumid" className="h-7 w-auto" />
-          <div>
-            <p className="text-[15px] font-semibold text-graphite">Lumid</p>
-            <p className="text-[12px] text-graphite/55">An Emotional Operating System</p>
-          </div>
+          <p className="text-[12px] text-graphite/55">An Emotional Operating System</p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-[13.5px] text-graphite/65">
           <a href="#product" className="hover:text-graphite">Product</a>
