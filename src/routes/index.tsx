@@ -36,12 +36,13 @@ export const Route = createFileRoute("/")({
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex items-center gap-2 eyebrow">
-      <span className="h-1.5 w-1.5 rounded-full bg-forest/70" />
+    <div className="inline-flex items-center gap-2.5 eyebrow">
+      <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-leaf shadow-[0_0_0_4px_rgba(111,181,140,0.18)]" />
       {children}
     </div>
   );
 }
+
 
 function Nav() {
   return (
@@ -378,7 +379,7 @@ function Home() {
 
       {/* HERO */}
       <section className="relative">
-        <div className="mx-auto max-w-6xl px-5 pt-14 text-center md:px-6 md:pt-24">
+        <div className="mx-auto max-w-6xl px-5 pt-16 text-center md:px-6 md:pt-28">
           <Eyebrow>A companion for emotional recovery</Eyebrow>
           <h1 className="mx-auto mt-5 max-w-4xl text-[42px] leading-[1.05] tracking-[-0.03em] text-graphite font-extralight sm:text-[56px] md:mt-6 md:text-[92px] md:leading-[1.02]">
             Emotional intelligence,
@@ -407,13 +408,16 @@ function Home() {
 
 
       {/* Trust strip */}
-      <section className="relative mt-16 pb-14 md:-mt-8 md:pb-20">
+      <section className="relative mt-20 pb-20 md:-mt-4 md:pb-28">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
-          <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 text-center">
-            <div className="h-px flex-1 bg-graphite/10" />
-            <p className="text-[12px] tracking-[0.22em] text-graphite/50 uppercase">Trusted in quiet corners of care</p>
-            <div className="h-px flex-1 bg-graphite/10" />
+          <div className="mx-auto flex max-w-3xl items-center justify-center gap-4 text-center seed-divider">
+            <div className="seed-divider-line" />
+            <span className="seed-dot" />
+            <p className="text-[12px] tracking-[0.22em] text-graphite/55 uppercase">Trusted in quiet corners of care</p>
+            <span className="seed-dot" />
+            <div className="seed-divider-line" />
           </div>
+
           <div className="mt-10 grid grid-cols-2 gap-x-10 gap-y-6 opacity-70 md:grid-cols-6 md:gap-x-6">
             {["Ottia Health", "Northwell Mind", "Kestrel Clinic", "Ivy Psychology", "Bloomlab", "Solace Co."].map((n) => (
               <div key={n} className="flex items-center justify-center gap-2 text-graphite/55">
@@ -426,7 +430,7 @@ function Home() {
       </section>
 
       {/* STORY / JOURNEY */}
-      <section id="story" className="relative py-16 md:py-28">
+      <section id="story" className="relative py-24 md:py-40">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-3xl">
             <Eyebrow>The journey Lumid holds</Eyebrow>
@@ -463,7 +467,7 @@ function Home() {
       </section>
 
       {/* PRODUCT FEATURES — each a small preview */}
-      <section id="product" className="relative py-14 md:py-24">
+      <section id="product" className="relative py-20 md:py-36">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
@@ -593,7 +597,7 @@ function Home() {
       </section>
 
       {/* PROCRASTINATION TIMELINE */}
-      <section className="relative py-16 md:py-28">
+      <section className="relative py-24 md:py-40">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-2xl">
             <Eyebrow>The difference</Eyebrow>
@@ -636,7 +640,7 @@ function Home() {
       </section>
 
       {/* CLINIC DASHBOARD */}
-      <section id="clinic" className="relative py-16 md:py-28">
+      <section id="clinic" className="relative py-24 md:py-40">
         <div className="mx-auto max-w-6xl px-5 md:px-6">
           <div className="max-w-3xl">
             <Eyebrow>For clinicians</Eyebrow>
@@ -734,7 +738,7 @@ function Home() {
       </section>
 
       {/* PRIVACY */}
-      <section id="privacy" className="relative py-16 md:py-28">
+      <section id="privacy" className="relative py-24 md:py-40">
         <div className="mx-auto max-w-6xl px-6 text-center">
           <Eyebrow>Privacy is the product</Eyebrow>
           <h2 className="mx-auto mt-6 max-w-3xl text-[32px] leading-[1.08] font-light tracking-[-0.025em] text-graphite sm:text-[44px] md:text-[60px] md:leading-[1.05]">
@@ -762,7 +766,7 @@ function Home() {
       </section>
 
       {/* CTA */}
-      <section id="start" className="relative py-14 md:py-24">
+      <section id="start" className="relative py-20 md:py-36">
         <div className="mx-auto max-w-5xl px-5 md:px-6">
           <div className="relative overflow-hidden rounded-[28px] md:rounded-[36px] border border-forest/15 bg-gradient-to-br from-forest to-forest-deep p-7 md:p-14 text-warm shadow-[0_60px_120px_-40px_rgba(16,32,27,0.6)]">
             <div className="pointer-events-none absolute -top-24 -right-24 h-80 w-80 rounded-full bg-mint/25 blur-3xl" />
