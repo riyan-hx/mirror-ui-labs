@@ -1058,7 +1058,7 @@ function Footer() {
           <a href="#product" className="hover:text-graphite">Product</a>
           <a href="#clinic" className="hover:text-graphite">Clinicians</a>
           <a href="#privacy" className="hover:text-graphite">Privacy</a>
-          <a href="#" className="hover:text-graphite">Contact</a>
+          <a href="#contact" className="hover:text-graphite">Contact</a>
         </div>
         <p className="text-[12px] text-graphite/50">© {new Date().getFullYear()} Lumid</p>
       </div>
