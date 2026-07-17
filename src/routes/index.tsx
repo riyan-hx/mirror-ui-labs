@@ -664,33 +664,33 @@ function Home() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-12 gap-6 p-8">
-                {/* side nav */}
-                <div className="col-span-3 space-y-1.5">
+              <div className="grid grid-cols-1 gap-6 p-5 md:grid-cols-12 md:p-8">
+                {/* side nav — horizontal on mobile, vertical on desktop */}
+                <div className="flex gap-1.5 overflow-x-auto md:col-span-3 md:flex-col md:space-y-1.5 md:overflow-visible">
                   {["Overview","Patients","Insights","Consent Log","Sessions","Settings"].map((n, i) => (
-                    <div key={n} className={`rounded-lg px-3 py-2 text-[12.5px] ${i===2 ? "bg-white/8 text-warm" : "text-warm/50"}`}>{n}</div>
+                    <div key={n} className={`shrink-0 rounded-lg px-3 py-2 text-[12.5px] whitespace-nowrap ${i===2 ? "bg-white/10 text-warm" : "text-warm/50"}`}>{n}</div>
                   ))}
                 </div>
 
                 {/* main */}
-                <div className="col-span-9 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
+                <div className="space-y-4 md:col-span-9">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="min-w-0">
                       <p className="text-[11px] uppercase tracking-[0.2em] text-warm/50">Patient · Consented insight</p>
-                      <p className="mt-1 text-[22px] font-light">Ada M. — Behavioral summary, past 14 days</p>
+                      <p className="mt-1 text-[17px] md:text-[22px] font-light">Ada M. — Behavioral summary, past 14 days</p>
                     </div>
-                    <span className="rounded-full border border-white/12 bg-white/6 px-3 py-1 text-[11px] text-warm/70">
+                    <span className="shrink-0 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[11px] text-warm/70">
                       Consent renewed · Apr 10
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     {[
                       { l: "Avoidance episodes", v: "↓ 34%", s: "vs. previous cycle" },
                       { l: "Micro-commitments kept", v: "18 / 21", s: "quiet consistency" },
                       { l: "Sleep window", v: "7h 04m", s: "±22m variance" },
                     ].map((k) => (
-                      <div key={k.l} className="rounded-xl border border-white/8 bg-white/4 p-4">
+                      <div key={k.l} className="rounded-xl border border-white/10 bg-white/5 p-4">
                         <p className="text-[11px] uppercase tracking-[0.2em] text-warm/50">{k.l}</p>
                         <p className="mt-2 text-[26px] font-light">{k.v}</p>
                         <p className="text-[11.5px] text-warm/50">{k.s}</p>
@@ -698,8 +698,9 @@ function Home() {
                     ))}
                   </div>
 
-                  <div className="grid grid-cols-5 gap-3">
-                    <div className="col-span-3 rounded-xl border border-white/8 bg-white/4 p-5">
+                  <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-5 md:col-span-3">
+
                       <p className="text-[11.5px] uppercase tracking-[0.2em] text-warm/50">Behavioral trend</p>
                       <svg viewBox="0 0 360 120" className="mt-3 w-full">
                         <defs>
