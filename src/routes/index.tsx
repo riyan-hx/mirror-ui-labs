@@ -837,6 +837,17 @@ function ClinicStory() {
             </div>
           </div>
         </div>
+
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 rounded-3xl border border-forest/10 bg-white/70 p-6 text-center shadow-sm sm:flex-row sm:p-8">
+          <div className="text-left">
+            <p className="text-[15px] font-semibold text-graphite">Interested in Lumid for your clinic?</p>
+            <p className="text-[14px] text-graphite/60">Reach out and we'll set up a private pilot.</p>
+          </div>
+          <a href="#contact" className="btn-primary shine w-full justify-center sm:w-auto">
+            Contact us
+            <ArrowRight size={15} strokeWidth={1.9} />
+          </a>
+        </div>
       </div>
     </section>
   );
