@@ -1083,6 +1083,7 @@ function Home() {
       <ClinicStory />
       <Privacy />
       <CTA />
+      <ContactSection />
       <Footer />
     </main>
   );
