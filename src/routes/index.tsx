@@ -36,12 +36,13 @@ export const Route = createFileRoute("/")({
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="inline-flex items-center gap-2 eyebrow">
-      <span className="h-1.5 w-1.5 rounded-full bg-forest/70" />
+    <div className="inline-flex items-center gap-2.5 eyebrow">
+      <span className="relative inline-block h-1.5 w-1.5 rounded-full bg-leaf shadow-[0_0_0_4px_rgba(111,181,140,0.18)]" />
       {children}
     </div>
   );
 }
+
 
 function Nav() {
   return (
