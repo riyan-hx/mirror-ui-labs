@@ -116,10 +116,6 @@ function Nav() {
           <a href="#privacy" className="hover:text-graphite">Privacy</a>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#start" className="btn-primary shine text-[13px] md:text-[14px]">
-            Try Lumid
-            <ArrowUpRight size={14} strokeWidth={1.9} />
-          </a>
           <button
             aria-label="Menu"
             onClick={() => setOpen((v) => !v)}
