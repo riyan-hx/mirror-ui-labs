@@ -1,4 +1,5 @@
 import logoAsset from "@/assets/LumidLOGOV2.png.asset.json";
+import lumidLogo2 from "@/assets/lumidlogo-2.png.asset.json";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -529,9 +530,11 @@ function UnderstandDemo() {
           <div className="card-premium relative overflow-hidden p-5 sm:p-7">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-forest to-forest-deep text-warm">
-                  <Sparkles size={13} strokeWidth={1.8} />
-                </div>
+                <img
+                  src={lumidLogo2.url}
+                  alt="Lumid"
+                  className="h-8 w-8 rounded-full object-cover"
+                />
                 <span className="text-[14px] font-medium text-graphite">Lumid</span>
               </div>
               <span className="chip-leaf">{convo.tag}</span>
