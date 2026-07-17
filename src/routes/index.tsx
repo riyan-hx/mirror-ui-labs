@@ -448,18 +448,18 @@ function Home() {
           {/* Journey rail */}
           <div className="mt-16 grid grid-cols-2 gap-3 md:grid-cols-4">
             {[
-              { i: <Waves size={16} strokeWidth={1.4} />, t: "Emotion", d: "Something arrives — a heaviness, a stall." },
-              { i: <MessageCircle size={16} strokeWidth={1.4} />, t: "Conversation", d: "You put it into words, at your own pace." },
-              { i: <Compass size={16} strokeWidth={1.4} />, t: "Understanding", d: "Lumid names the pattern beneath the moment." },
-              { i: <LineChart size={16} strokeWidth={1.4} />, t: "Growth", d: "Small returns become who you are." },
+              { i: <Waves size={16} strokeWidth={1.4} />, t: "Emotion", d: "Something arrives — a heaviness, a stall.", tone: "card-sky", ic: "bg-sky/25 text-graphite" },
+              { i: <MessageCircle size={16} strokeWidth={1.4} />, t: "Conversation", d: "You put it into words, at your own pace.", tone: "card-mint", ic: "bg-forest/10 text-forest" },
+              { i: <Compass size={16} strokeWidth={1.4} />, t: "Understanding", d: "Lumid names the pattern beneath the moment.", tone: "card-amber", ic: "bg-amber/30 text-graphite" },
+              { i: <LineChart size={16} strokeWidth={1.4} />, t: "Growth", d: "Small returns become who you are.", tone: "card-cream", ic: "bg-forest/12 text-forest-deep" },
             ].map((s, idx) => (
-              <div key={s.t} className="card-premium relative p-6">
+              <div key={s.t} className={`card-premium ${s.tone} relative p-6`}>
                 <div className="flex items-center justify-between">
-                  <div className="grid h-9 w-9 place-items-center rounded-full bg-forest/8 text-forest">{s.i}</div>
+                  <div className={`grid h-9 w-9 place-items-center rounded-full ${s.ic}`}>{s.i}</div>
                   <span className="text-[11px] text-graphite/40">0{idx + 1}</span>
                 </div>
                 <p className="mt-6 text-[22px] font-light tracking-tight text-graphite">{s.t}</p>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/65">{s.d}</p>
+                <p className="mt-2 text-[14.5px] leading-relaxed text-graphite/70">{s.d}</p>
               </div>
             ))}
           </div>
